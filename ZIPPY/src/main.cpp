@@ -109,12 +109,42 @@ void odomDebug(void*) {
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {
-	pros::lcd::initialize();
-    chassis.calibrate();
-    chassis.setPose(0, 0, 0);
 
-    static pros::Task odom_task(odomDebug);
+
+ pros::Task* odomTask = nullptr;
+
+void initialize() {
+    pros::lcd::initialize();
+
+    inertial19.reset();
+    while (inertial19.is_calibrating()) {
+        pros::delay(10);
+    }
+
+    Xaxis.reset_position();
+    Yaxis.reset_position();
+
+    chassis.calibrate();
+    
+
+    odomTask = new pros::Task(odomDebug);
+
+
+	new pros::Task(DriveTrainControls);
+    new pros::Task(IntakeControls);
+    new pros::Task(IntakerevControls);
+    new pros::Task(OutakeControls);
+    new pros::Task(OutakerevControls);
+    new pros::Task(slowOutakeControls);
+    new pros::Task(DrivePTOcontrols);
+    new pros::Task(Parkcontrols);
+    new pros::Task(Loadercontrols);
+    new pros::Task(liftercontrols);
+    new pros::Task(Hookcontrols);
+
+    new pros::Task(slavePTOcontrol);
+    new pros::Task(slaveWINGcontrol);
+    new pros::Task(slaveLOADERcontrol);
 }
 
 /**
@@ -134,15 +164,10 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-    pros::lcd::initialize();
-    chassis.calibrate();
-    chassis.setPose(0, 0, 0);
 
-    lemlib::Pose pose = chassis.getPose();
-        pros::lcd::print(0, "X: %.2f", pose.x);
-        pros::lcd::print(1, "Y: %.2f", pose.y);
-        pros::lcd::print(2, "H: %.2f", pose.theta);
-        pros::delay(50);
+    if (!odomTask) {
+        odomTask = new pros::Task(odomDebug);
+    }
     }
 
 /**
@@ -159,6 +184,7 @@ void competition_initialize() {
  
 
 void autonomous() {
+if (!odomTask) odomTask = new pros::Task(odomDebug);
 chassis.setPose(0, 0, 0);
 
     // robot movement here if desired
@@ -189,53 +215,19 @@ chassis.setPose(0, 0, 0);
  * task, not resume it from where it left off.
  */
 
-
-
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::MotorGroup LeftDrive({12, 13, 14}, pros::MotorGears::blue);
-	pros::MotorGroup RightDrive({18, 19, 20}, pros::MotorGears::blue);  
 
+    pros::Controller master(pros::E_CONTROLLER_MASTER);
 
-	while (true) {
-        // Master label
-    if (master.is_connected()) {
-      master.print(0, 0, "MASTER");   // row 0, column 0
+    while (true) {
+        if (master.is_connected()) {
+            master.print(0, 0, "MASTER");
+        }
+
+        if (slave.is_connected()) {
+            slave.print(0, 0, "SLAVE");
+        }
+
+        pros::delay(20);  // REQUIRED
     }
-
-    // slave label
-    if (slave.is_connected()) {
-      slave.print(0, 0, "SLAVE");
-    }
-		//pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 //(pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 //(pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
-/*
-		// Arcade control scheme
-		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
-		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
-		LeftDrive.move(dir - turn);                      // Sets left motor voltage
-		RightDrive.move(dir + turn);                     // Sets right motor voltage
-		pros::delay(20);                               // Run for 20 ms then update*/
-	}
-
-/////master control functions//////
-pros::Task a(DriveTrainControls);
-pros::Task b(IntakeControls);
-pros::Task c(IntakerevControls);
-pros::Task d(OutakeControls);
-pros::Task e(OutakerevControls);
-pros::Task f(slowOutakeControls);
-pros::Task g(DrivePTOcontrols);
-pros::Task h(Parkcontrols);
-pros::Task i(Loadercontrols);
-pros::Task j(liftercontrols);
-pros::Task k(Hookcontrols);
-
-/////slave control functions//////
-pros::Task l(slavePTOcontrol);
-pros::Task m(slaveWINGcontrol);
-pros::Task n(slaveLOADERcontrol);
-
-
 }

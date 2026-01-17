@@ -15,12 +15,12 @@ PTOManager pto(
 //lemlib config
 ///////////////////////config at a later time///////////////////////
 // drivetrain
-lemlib::Drivetrain drivetrain(&L, // left motor group
-                              &R, // right motor group
+lemlib::Drivetrain drivetrain(&Left, // left motor group
+                              &Right, // right motor group
                               14.5, // 14.5 inch track width
                               lemlib::Omniwheel::NEW_325, // using new 3.25" omnis
                               480, // drivetrain rpm is 480
-                              2 // horizontal drift is 2 (for now)
+                              0 // horizontal drift is 2 (for now)
 );
 
 
@@ -125,26 +125,9 @@ void initialize() {
     Yaxis.reset_position();
 
     chassis.calibrate();
-    
-
-    odomTask = new pros::Task(odomDebug);
 
 
-	new pros::Task(DriveTrainControls);
-    new pros::Task(IntakeControls);
-    new pros::Task(IntakerevControls);
-    new pros::Task(OutakeControls);
-    new pros::Task(OutakerevControls);
-    new pros::Task(slowOutakeControls);
-    new pros::Task(DrivePTOcontrols);
-    new pros::Task(Parkcontrols);
-    new pros::Task(Loadercontrols);
-    new pros::Task(liftercontrols);
-    new pros::Task(Hookcontrols);
 
-    new pros::Task(slavePTOcontrol);
-    new pros::Task(slaveWINGcontrol);
-    new pros::Task(slaveLOADERcontrol);
 }
 
 /**
@@ -228,6 +211,18 @@ void opcontrol() {
             slave.print(0, 0, "SLAVE");
         }
 
+		
+		new pros::Task(DriveTrainControls);
+		new pros::Task(IntakeControls);
+		new pros::Task(OutakeControls);
+		new pros::Task(DrivePTOcontrols);
+		new pros::Task(Loadercontrols);
+		new pros::Task(liftercontrols);
+		new pros::Task(Hookcontrols);
+
+		new pros::Task(slavePTOcontrol);
+		new pros::Task(slaveWINGcontrol);
+		new pros::Task(slaveLOADERcontrol);
         pros::delay(20);  // REQUIRED
     }
 }

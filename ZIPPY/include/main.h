@@ -28,7 +28,7 @@
 
 /**
  * If defined, C++ literals will be available for use. All literals are in the
- * pros::literals namespace.
+ * extern pros::literals namespace.
  *
  * For instance, you can do `4_mtr = 50` to set motor 4's target velocity to 50
  */
@@ -36,21 +36,106 @@
 
 #include "api.h"
 
+
+#include "drivetrain.h"
+#include "PTO.h"
+#include "selector.h"
+
+
+#include "lemlib/api.hpp" // lemlib
+#include "liblvgl/misc/lv_types.h"
+#include "liblvgl/llemu.hpp"
+#include "liblvgl/lvgl.h"
+
+
+
 /**
  * You should add more #includes here
  */
 //#include "okapi/api.hpp"
 
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <limits>
+#include <utility>
+#include <stdexcept>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+
+
 /**
- * If you find doing pros::Motor() to be tedious and you'd prefer just to do
+ * robot configurations
+ */
+
+extern pros::Controller master;
+extern pros::Controller slave;
+extern pros::Motor L1;
+extern pros::Motor L2;
+extern pros::Motor PTOL3;
+extern pros::Motor LIntake;
+extern pros::Motor R6;
+extern pros::Motor R7;
+extern pros::Motor PTOR8;
+extern pros::Motor RIntake;
+extern pros::MotorGroup L;
+extern pros::MotorGroup R;
+extern pros::MotorGroup DrivePTO;
+extern pros::MotorGroup IntakePTO;
+extern pros::MotorGroup Drivetrain;
+extern pros::MotorGroup Left;
+extern pros::MotorGroup Right;
+extern pros::MotorGroup Intake2;
+extern pros::MotorGroup Intake4;
+extern pros::Imu inertial19;
+extern pros::Rotation Yaxis;
+extern pros::Rotation Xaxis;
+extern pros::Optical Color;
+extern pros::adi::Pneumatics DrivePTOPiston;
+extern pros::adi::Pneumatics IntakePTOPiston;
+extern pros::adi::Pneumatics Funnel;
+extern pros::adi::Pneumatics Doublepark;
+extern pros::adi::Pneumatics Lifter;
+extern pros::adi::Pneumatics Loader;
+extern pros::adi::Pneumatics Hook;
+
+
+//declarations for classes
+extern PTOManager pto;
+//lemlib declarations for classes
+extern lemlib::Chassis chassis;
+extern lemlib::OdomSensors sensors;
+extern lemlib::ControllerSettings lateral_controller;
+extern lemlib::ControllerSettings angular_controller;
+
+
+
+
+
+
+
+
+
+
+/**
+ * If you find doing extern pros::Motor() to be tedious and you'd prefer just to do
  * Motor, you can use the namespace with the following commented out line.
  *
  * IMPORTANT: Only the okapi or pros namespace may be used, not both
  * concurrently! The okapi namespace will export all symbols inside the pros
  * namespace.
  */
-// using namespace pros;
-// using namespace pros::literals;
+   using namespace pros;
+// using namespace extern pros::literals;
 // using namespace okapi;
 
 /**
@@ -77,4 +162,4 @@ void opcontrol(void);
 //#include <iostream>
 #endif
 
-#endif  // _PROS_MAIN_H_
+#endif  _PROS_MAIN_H_

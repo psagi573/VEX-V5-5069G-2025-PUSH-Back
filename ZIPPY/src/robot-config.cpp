@@ -44,5 +44,3 @@ pros::adi::Pneumatics Lifter('D', true);
 pros::adi::Pneumatics Loader('C', true);
 pros::adi::Pneumatics Hook('B', true);
 
-
-robot-config.cpp

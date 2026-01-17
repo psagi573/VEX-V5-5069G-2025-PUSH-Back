@@ -91,11 +91,14 @@ void on_center_button() {
 	}
 }
 void odomDebug(void*) {
+	pros::lcd::clear_line(1);
+	pros::lcd::clear_line(2);
+	pros::lcd::clear_line(3);
     while (true) {
         lemlib::Pose pose = chassis.getPose();
-        pros::lcd::print(0, "X: %.2f", pose.x);
-        pros::lcd::print(1, "Y: %.2f", pose.y);
-        pros::lcd::print(2, "H: %.2f", pose.theta);
+        pros::lcd::print(1, "X: %.2f", pose.x);
+        pros::lcd::print(2, "Y: %.2f", pose.y);
+        pros::lcd::print(3, "H: %.2f", pose.theta);
         pros::delay(50);
     }
 }
@@ -107,6 +110,11 @@ void odomDebug(void*) {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	pros::lcd::initialize();
+    chassis.calibrate();
+    chassis.setPose(0, 0, 0);
+
+    static pros::Task odom_task(odomDebug);
 }
 
 /**
@@ -225,9 +233,9 @@ pros::Task j(liftercontrols);
 pros::Task k(Hookcontrols);
 
 /////slave control functions//////
-pros::Task l(slavePTOcontrol());
-pros::Task m(slaveWINGcontrol());
-pros::Task n(slaveLOADERcontrol());
+pros::Task l(slavePTOcontrol);
+pros::Task m(slaveWINGcontrol);
+pros::Task n(slaveLOADERcontrol);
 
 
 }

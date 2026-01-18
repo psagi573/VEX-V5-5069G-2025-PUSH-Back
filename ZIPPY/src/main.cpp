@@ -15,11 +15,11 @@ PTOManager pto(
 );
 
 // Drivetrain / LemLib config
-lemlib::Drivetrain drivetrain(&L, &R, 14.5, lemlib::Omniwheel::NEW_325, 480, 2);
+lemlib::Drivetrain drivetrain(&L, &R, 14.5, lemlib::Omniwheel::NEW_325, 480, 0.105);
 
 // Odom wheels
-lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, lemlib::Omniwheel::NEW_2, -1.125);
-lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, lemlib::Omniwheel::NEW_2, -0.1875);
+lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, 2, 1.4);
+lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, 2, 0);
 
 // Odom sensors
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr, &horizontal_tracking_wheel, nullptr, &inertial19);
@@ -35,11 +35,18 @@ lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sens
 
 // ----------------- ODOM DEBUG TASK -----------------
 void odomDebug(void*) {
+    master.clear();
     while(true) {
         lemlib::Pose pose = chassis.getPose();
         pros::lcd::print(1, "X: %.2f", pose.x);
         pros::lcd::print(2, "Y: %.2f", pose.y);
         pros::lcd::print(3, "H: %.2f", pose.theta);
+        pros::lcd::print(4, "X true: %.2f", Xaxis.get_position());
+        pros::lcd::print(5, "Y true: %.2f", Yaxis.get_position());
+
+        master.print(0, 0, "X:%5.1f Y:%5.1f", pose.x, pose.y);
+        master.print(1, 0, "H:%5.1f", pose.theta);
+        master.print(2, 0, "X true:%5.1f Y true:%5.1f", Xaxis.get_position(), Yaxis.get_position());
         pros::delay(50);
     }
 }
@@ -71,7 +78,7 @@ void competition_initialize() {}
 // ----------------- AUTONOMOUS -----------------
 void autonomous() {
     chassis.setPose(0,0,0);
-
+    
 
 
     pros::delay(15000); // keep auton alive for skills

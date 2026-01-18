@@ -36,23 +36,19 @@
 
 #include "api.h"
 
-
 #include "drivetrain.h"
 #include "PTO.h"
-#include "selector.h"
-
 
 #include "lemlib/api.hpp" // lemlib
 #include "liblvgl/misc/lv_types.h"
 #include "liblvgl/llemu.hpp"
 #include "liblvgl/lvgl.h"
-
-
+#include "lvgl.h"
 
 /**
  * You should add more #includes here
  */
-//#include "okapi/api.hpp"
+// #include "okapi/api.hpp"
 
 #include <math.h>
 #include <stdio.h>
@@ -71,7 +67,6 @@
 #include <algorithm>
 #include <iomanip>
 #include <fstream>
-
 
 /**
  * robot configurations
@@ -108,23 +103,14 @@ extern pros::adi::Pneumatics Lifter;
 extern pros::adi::Pneumatics Loader;
 extern pros::adi::Pneumatics Hook;
 
-
-//declarations for classes
+// declarations for classes
 extern PTOManager pto;
-//lemlib declarations for classes
+// lemlib declarations for classes
 extern lemlib::Chassis chassis;
 extern lemlib::OdomSensors sensors;
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
-
-
-
-
-
-
-
-
-
+extern selected_auton_t selected_auton_global;
 
 /**
  * If you find doing extern pros::Motor() to be tedious and you'd prefer just to do
@@ -134,7 +120,7 @@ extern lemlib::ControllerSettings angular_controller;
  * concurrently! The okapi namespace will export all symbols inside the pros
  * namespace.
  */
-   using namespace pros;
+using namespace pros;
 // using namespace extern pros::literals;
 // using namespace okapi;
 
@@ -144,13 +130,14 @@ extern lemlib::ControllerSettings angular_controller;
  * button press in opcontrol() for testing purposes).
  */
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
-void autonomous(void);
-void initialize(void);
-void disabled(void);
-void competition_initialize(void);
-void opcontrol(void);
+  void autonomous(void);
+  void initialize(void);
+  void disabled(void);
+  void competition_initialize(void);
+  void opcontrol(void);
 #ifdef __cplusplus
 }
 #endif
@@ -159,6 +146,6 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
-//#include <iostream>
+// #include <iostream>
 #endif
-#endif  // _PROS_MAIN_H_
+#endif // _PROS_MAIN_H_

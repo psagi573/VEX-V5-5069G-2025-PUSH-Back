@@ -13,11 +13,13 @@ int DriveTrainControls() {
         float rightVolt = tovolt(forward - turn);
 
         // PTO-aware drivetrain
-        auto leftActive = pto.getActiveLeftMotors();
-        auto rightActive = pto.getActiveRightMotors();
+        // auto leftActive = pto.getActiveLeftMotors();
+        // auto rightActive = pto.getActiveRightMotors();
 
-        for (auto m : leftActive) m->move_voltage(leftVolt * 1000);
-        for (auto m : rightActive) m->move_voltage(rightVolt * 1000);
+        // for (auto m : leftActive) m->move_voltage(leftVolt * 1000);
+        // for (auto m : rightActive) m->move_voltage(rightVolt * 1000);
+        Left.move_voltage(leftVolt * 1000);
+        Right.move_voltage(rightVolt * 1000);
 
         pros::delay(10);
     }
@@ -38,21 +40,32 @@ int DrivePTOcontrols() {
 
 // --------- INTAKE CONTROLS ---------
 int IntakeControls() {
-    while (true) {
+    // while (true) {
+    //     if (master.get_digital(DIGITAL_R1)) {
+    //         if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
+    //             Funnel.retract();
+    //             Intake2.move(127);
+    //         } else {
+    //             pto.setDriveMode(DRIVE_6_MOTOR);
+    //         }
+    //     } else if (master.get_digital(DIGITAL_R2)) {
+    //         if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
+    //             Funnel.retract();
+    //             Intake2.move(-127);
+    //         } else {
+    //             pto.setDriveMode(DRIVE_6_MOTOR);
+    //         }
+    //     } else {
+    //         Intake2.brake();
+    //     }
+
+
+
+        while (true) {
         if (master.get_digital(DIGITAL_R1)) {
-            if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
-                Funnel.retract();
                 Intake2.move(127);
-            } else {
-                pto.setDriveMode(DRIVE_6_MOTOR);
-            }
         } else if (master.get_digital(DIGITAL_R2)) {
-            if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
-                Funnel.retract();
                 Intake2.move(-127);
-            } else {
-                pto.setDriveMode(DRIVE_6_MOTOR);
-            }
         } else {
             Intake2.brake();
         }
@@ -63,27 +76,41 @@ int IntakeControls() {
 // --------- OUTAKE CONTROLS ---------
 int OutakeControls() {
     while (true) {
-        if (master.get_digital(DIGITAL_L1)) {
-            if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
-                Funnel.extend();
+        // if (master.get_digital(DIGITAL_L1)) {
+        //     if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
+        //         Funnel.extend();
+        //         Intake4.move(127);
+        //     } else {
+        //         pto.setDriveMode(DRIVE_4_MOTOR);
+        //     }
+        // } else if (master.get_digital(DIGITAL_L2)) {
+        //     if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
+        //         Funnel.extend();
+        //         Intake4.move(-127);
+        //     } else {
+        //         pto.setDriveMode(DRIVE_4_MOTOR);
+        //     }
+        // } else if (master.get_digital(DIGITAL_UP)) { // slow outake
+        //     if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
+        //         Funnel.extend();
+        //         Intake4.move(-60);
+        //     } else {
+        //         pto.setDriveMode(DRIVE_4_MOTOR);
+        //     }
+        // } else {
+        //     Intake4.brake();
+        // }
+
+
+
+
+         if (master.get_digital(DIGITAL_L1)) {
                 Intake4.move(127);
-            } else {
-                pto.setDriveMode(DRIVE_4_MOTOR);
-            }
         } else if (master.get_digital(DIGITAL_L2)) {
-            if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
-                Funnel.extend();
                 Intake4.move(-127);
-            } else {
-                pto.setDriveMode(DRIVE_4_MOTOR);
-            }
         } else if (master.get_digital(DIGITAL_UP)) { // slow outake
-            if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
-                Funnel.extend();
-                Intake4.move(-60);
-            } else {
-                pto.setDriveMode(DRIVE_4_MOTOR);
-            }
+                Intake2.move(60);
+                DrivePTO.move(-60);
         } else {
             Intake4.brake();
         }
@@ -137,31 +164,6 @@ int Hookcontrols() {
             else
                 Hook.retract();
         }
-        pros::delay(10);
-    }
-}
-
-// --------- SLAVE CONTROLS ---------
-int slavePTOcontrol() {
-    while (true) {
-        if (slave.get_digital(DIGITAL_R1))
-            pto.setDriveMode(DRIVE_6_MOTOR);
-        pros::delay(10);
-    }
-}
-
-int slaveWINGcontrol() {
-    while (true) {
-        if (slave.get_digital(DIGITAL_L2))
-            Hook.retract();
-        pros::delay(10);
-    }
-}
-
-int slaveLOADERcontrol() {
-    while (true) {
-        if (slave.get_digital(DIGITAL_L1))
-            Loader.retract();
         pros::delay(10);
     }
 }

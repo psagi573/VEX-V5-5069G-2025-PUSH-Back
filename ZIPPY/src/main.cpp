@@ -201,28 +201,24 @@ chassis.setPose(0, 0, 0);
 void opcontrol() {
 
     pros::Controller master(pros::E_CONTROLLER_MASTER);
+    static bool tasksStarted = false;
+    if (!tasksStarted) {
+        new pros::Task(DriveTrainControls);
+        new pros::Task(IntakeControls);
+        new pros::Task(OutakeControls);
+        new pros::Task(DrivePTOcontrols);
+        new pros::Task(Loadercontrols);
+        new pros::Task(liftercontrols);
+        new pros::Task(Hookcontrols);
+
+        tasksStarted = true; // prevent starting them multiple times
+    }
 
     while (true) {
         if (master.is_connected()) {
             master.print(0, 0, "MASTER");
         }
 
-        if (slave.is_connected()) {
-            slave.print(0, 0, "SLAVE");
-        }
-
-		
-		new pros::Task(DriveTrainControls);
-		new pros::Task(IntakeControls);
-		new pros::Task(OutakeControls);
-		new pros::Task(DrivePTOcontrols);
-		new pros::Task(Loadercontrols);
-		new pros::Task(liftercontrols);
-		new pros::Task(Hookcontrols);
-
-		new pros::Task(slavePTOcontrol);
-		new pros::Task(slaveWINGcontrol);
-		new pros::Task(slaveLOADERcontrol);
         pros::delay(20);  // REQUIRED
     }
 }

@@ -12,9 +12,3 @@ int Loadercontrols();
 int liftercontrols();
 int Hookcontrols();
 
-
-
-/////slave control functions//////
-int slavePTOcontrol();
-int slaveWINGcontrol();
-int slaveLOADERcontrol();

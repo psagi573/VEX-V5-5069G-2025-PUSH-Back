@@ -27,12 +27,12 @@ int DriveTrainControls() {
 
 // --------- PTO CONTROL ---------
 int DrivePTOcontrols() {
-    static bool DrivePTO = false;
+    static bool DrivePTO1 = false;
 
     while (true) {
         if (master.get_digital_new_press(DIGITAL_RIGHT)) {
-            DrivePTO = !DrivePTO;
-            pto.setDriveMode(DrivePTO ? DRIVE_8_MOTOR : DRIVE_6_MOTOR);
+            DrivePTO1 = !DrivePTO1;
+            pto.setDriveMode(DrivePTO1 ? DRIVE_8_MOTOR : DRIVE_6_MOTOR);
         }
         pros::delay(10);
     }
@@ -63,11 +63,11 @@ int IntakeControls() {
 
         while (true) {
         if (master.get_digital(DIGITAL_R1)) {
-                Intake2.move(127);
+                IntakePTO.move(127);
         } else if (master.get_digital(DIGITAL_R2)) {
-                Intake2.move(-127);
+                IntakePTO.move(-127);
         } else {
-            Intake2.brake();
+            IntakePTO.brake();
         }
         pros::delay(10);
     }
@@ -106,13 +106,20 @@ int OutakeControls() {
 
          if (master.get_digital(DIGITAL_L1)) {
                 Intake4.move(127);
-        } else if (master.get_digital(DIGITAL_L2)) {
+        } 
+        else if (master.get_digital(DIGITAL_R1)) {
+                IntakePTO.move(127);
+        } else if (master.get_digital(DIGITAL_R2)) {
+                IntakePTO.move(-127);
+        }
+        else if (master.get_digital(DIGITAL_L2)) {
                 Intake4.move(-127);
         } else if (master.get_digital(DIGITAL_UP)) { // slow outake
                 Intake2.move(60);
                 DrivePTO.move(-60);
         } else {
-            Intake4.brake();
+            Intake2.brake();
+            DrivePTO.brake();
         }
         pros::delay(10);
     }

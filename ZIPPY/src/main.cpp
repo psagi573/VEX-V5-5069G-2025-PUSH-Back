@@ -1,8 +1,7 @@
 #include "main.h"
 
 // ----------------- GLOBALS -----------------
-pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Controller slave(pros::E_CONTROLLER_PARTNER);
+
 
 // Tasks
 pros::Task* odomTask = nullptr;
@@ -19,8 +18,8 @@ PTOManager pto(
 lemlib::Drivetrain drivetrain(&L, &R, 14.5, lemlib::Omniwheel::NEW_325, 480, 2);
 
 // Odom wheels
-lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, lemlib::Omniwheel::NEW_2, -0.1875);
-lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, lemlib::Omniwheel::NEW_2, -1.125);
+lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, lemlib::Omniwheel::NEW_2, -1.125);
+lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, lemlib::Omniwheel::NEW_2, -0.1875);
 
 // Odom sensors
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr, &horizontal_tracking_wheel, nullptr, &inertial19);
@@ -80,7 +79,11 @@ void autonomous() {
 
 // ----------------- OPERATOR CONTROL -----------------
 void opcontrol() {
-	new pros::Task(DriveTrainControls);
+    Drivetrain.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
+    IntakePTO.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
+    DrivePTO.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
+
+    new pros::Task(DriveTrainControls);
     new pros::Task(IntakeControls);
     new pros::Task(OutakeControls);
     new pros::Task(DrivePTOcontrols);

@@ -43,7 +43,7 @@
 #include "liblvgl/misc/lv_types.h"
 #include "liblvgl/llemu.hpp"
 #include "liblvgl/lvgl.h"
-#include "lvgl.h"
+
 
 /**
  * You should add more #includes here
@@ -110,7 +110,7 @@ extern lemlib::Chassis chassis;
 extern lemlib::OdomSensors sensors;
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
-extern selected_auton_t selected_auton_global;
+
 
 /**
  * If you find doing extern pros::Motor() to be tedious and you'd prefer just to do

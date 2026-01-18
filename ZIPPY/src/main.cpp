@@ -1,6 +1,4 @@
 #include "main.h"
-#include "auton_selector_modern.h"
-#include "auton.h"
 
 // ----------------- GLOBALS -----------------
 pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -34,13 +32,7 @@ lemlib::ControllerSettings angular_controller(2,0,10,3,1,100,3,500,0);
 // Chassis
 lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sensors);
 
-// Auton selector global
-selected_auton_t selected_auton_global;
-std::vector<auton_descriptor_t> red_right_list;
-std::vector<auton_descriptor_t> red_left_list;
-std::vector<auton_descriptor_t> blue_right_list;
-std::vector<auton_descriptor_t> blue_left_list;
-auton_descriptor_t skills_descriptor;
+
 
 // ----------------- ODOM DEBUG TASK -----------------
 void odomDebug(void*) {
@@ -68,8 +60,7 @@ void initialize() {
     // Start Odom debug task
     odomTask = new pros::Task(odomDebug);
 
-    // ----------------- MODERN AUTON SELECTOR -----------------
-    modernAutonSelector(red_right_list, red_left_list, blue_right_list, blue_left_list, skills_descriptor);
+
 }
 
 // ----------------- DISABLED -----------------
@@ -82,15 +73,7 @@ void competition_initialize() {}
 void autonomous() {
     chassis.setPose(0,0,0);
 
-    // Select the auton that was chosen
-    switch(selected_auton_global.group) {
-        case RED_RIGHT:  runAuton(red_right_list[selected_auton_global.index]); break;
-        case RED_LEFT:   runAuton(red_left_list[selected_auton_global.index]); break;
-        case BLUE_RIGHT: runAuton(blue_right_list[selected_auton_global.index]); break;
-        case BLUE_LEFT:  runAuton(blue_left_list[selected_auton_global.index]); break;
-        case SKILLS:     runAuton(skills_descriptor); break;
-        default: break;
-    }
+
 
     pros::delay(15000); // keep auton alive for skills
 }

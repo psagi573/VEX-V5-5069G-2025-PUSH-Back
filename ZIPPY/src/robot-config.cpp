@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/distance.hpp"
 
 // Controller definitions
 pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -24,6 +25,8 @@ pros::MotorGroup R({16, 19, 18}, pros::MotorGears::blue); //R6, R7, PTOR8
 pros::MotorGroup DrivePTO({-13, 18}, pros::MotorGears::blue); //PTOL3, PTOR8
 pros::MotorGroup IntakePTO({-11, 20}, pros::MotorGears::blue); //LIntake, RIntake
 pros::MotorGroup Drivetrain({-12, -14, 16, 19}, pros::MotorGears::blue); //L1, L2, R6, R7
+pros::MotorGroup DrivetrainL({-12, -14, -13, -11}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake
+pros::MotorGroup DrivetrainR({16, 19, 18, 20}, pros::MotorGears::blue); //R6, R7, PTOR8, RIntake
 pros::MotorGroup Left({-12, -14}, pros::MotorGears::blue); //L1, L2
 pros::MotorGroup Right({19, 16}, pros::MotorGears::blue); //R6, R7
 pros::MotorGroup Intake2({-11, 20}, pros::MotorGears::blue); //LIntake, RIntake
@@ -32,14 +35,14 @@ pros::MotorGroup Intake4({-11, 20, 18, -13}, pros::MotorGears::blue); //LIntake,
 pros::Imu inertial19(6);
 pros::Rotation Yaxis(5);
 pros::Rotation Xaxis(-17);
-pros::Optical Color(4);
+pros::Distance Yeye(3);
+pros::Distance Xeye(9);
 
 // Pneumatic definitions
-pros::adi::Pneumatics DrivePTOPiston('H', true);
-pros::adi::Pneumatics IntakePTOPiston('G', true);
+pros::adi::Pneumatics DrivePTOPiston('B', false);
+pros::adi::Pneumatics IntakePTOPiston('A', true);
 pros::adi::Pneumatics Funnel('F', true);
 pros::adi::Pneumatics Doublepark('E', true);
-pros::adi::Pneumatics Lifter('D', true);
 pros::adi::Pneumatics Loader('C', true);
-pros::adi::Pneumatics Hook('B', true);
+pros::adi::Pneumatics Hook('G', true);
 

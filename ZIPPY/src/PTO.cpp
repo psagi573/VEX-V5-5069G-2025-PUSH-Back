@@ -17,15 +17,15 @@ DriveMode PTOManager::setDriveMode(DriveMode targetMode) {
 
     switch(targetMode) {
         case DRIVE_4_MOTOR:
-            drivePiston.set_value(false);   // retract drive PTO
+            drivePiston.set_value(true);   // retract drive PTO
             intakePiston.set_value(false); // retract intake PTO
             break;
         case DRIVE_6_MOTOR:
-            drivePiston.set_value(true);  // extend drive PTO
+            drivePiston.set_value(false);  // extend drive PTO
             intakePiston.set_value(false);
             break;
         case DRIVE_8_MOTOR:
-            drivePiston.set_value(true);
+            drivePiston.set_value(false);
             intakePiston.set_value(true);  // extend intake PTO
             break;
     }

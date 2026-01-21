@@ -12,6 +12,7 @@ PTOManager pto(
     {&R6, &R7, &PTOR8, &RIntake},
     'B',
     'A'
+    
 );
 
 // Drivetrain / LemLib config
@@ -81,6 +82,7 @@ void initialize() {
     DrivetrainL.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     DrivetrainR.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     chassis.setPose(0,0,0);
+    pto.setDriveMode(DRIVE_6_MOTOR);
 
     // Start Odom debug task
     odomTask = new pros::Task(odomDebug);

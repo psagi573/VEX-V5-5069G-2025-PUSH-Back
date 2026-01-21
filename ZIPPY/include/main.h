@@ -24,6 +24,7 @@
  * E_CONTROLLER_MASTER is pedantically correct within the PROS styleguide, but
  * not convenient for most student programmers.
  */
+#include "pros/adi.hpp"
 #define PROS_USE_SIMPLE_NAMES
 
 /**
@@ -100,8 +101,7 @@ extern pros::Distance Yeye;
 extern pros::Distance Xeye;
 extern pros::adi::Pneumatics DrivePTOPiston;
 extern pros::adi::Pneumatics IntakePTOPiston;
-extern pros::adi::Pneumatics Funnel;
-extern pros::adi::Pneumatics Doublepark;
+extern pros::adi::Pneumatics Midgoal;
 extern pros::adi::Pneumatics Loader;
 extern pros::adi::Pneumatics Hook;
 

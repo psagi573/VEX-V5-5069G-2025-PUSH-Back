@@ -1,7 +1,7 @@
 #include "main.h"
 
 // Helper for voltage
-float tovolt(float percentage) { return (percentage * 127.0 / 100.0); }
+float tovolt(float percentage) { return (percentage * 12000.0 / 100.0); }
 
 // --------- DRIVETRAIN ---------
 int DriveTrainControls() {
@@ -16,16 +16,16 @@ int DriveTrainControls() {
 
         if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
             // Handle 4-motor mode
-            Left.move(leftVolt);
-            Right.move(rightVolt);
+            Left.move_voltage(leftVolt);
+            Right.move_voltage(rightVolt);
         } else if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
             // Handle 6-motor mode
-            L.move(leftVolt);
-            R.move(rightVolt);
+            L.move_voltage(leftVolt);
+            R.move_voltage(rightVolt);
         } else if (pto.getCurrentDriveMode() == DRIVE_8_MOTOR) {
             // Handle 8-motor mode
-            DrivetrainL.move(leftVolt);
-            DrivetrainR.move(rightVolt);
+            DrivetrainL.move_voltage(leftVolt);
+            DrivetrainR.move_voltage(rightVolt);
         }
         pros::delay(10);
     }
@@ -49,40 +49,36 @@ int OutakeControls() {
     while (true) {
         if (master.get_digital(DIGITAL_L1)) {
             if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
-                IntakePTO.move(127);
-                DrivePTO.move(127);
-            } else {
-                pto.setDriveMode(DRIVE_4_MOTOR);
-            }
-        } else if (master.get_digital(DIGITAL_L2)) {
-            if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
                 IntakePTO.move(-127);
                 DrivePTO.move(-127);
             } else {
                 pto.setDriveMode(DRIVE_4_MOTOR);
             }
-        } else if (master.get_digital(DIGITAL_UP)) { // slow outake
+        } else if (master.get_digital(DIGITAL_DOWN)) { // slow outake
             if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
-                IntakePTO.move(127);
-                DrivePTO.move(-127);
+                Midgoal.extend();
+                IntakePTO.move(60);
+                DrivePTO.move(-60);
             } else {
                 pto.setDriveMode(DRIVE_4_MOTOR);
             }
-        } else if (master.get_digital(DIGITAL_R1)) {
+        } else if (master.get_digital(DIGITAL_R2)) {
             if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
                 IntakePTO.move(127);
             } else {
                 pto.setDriveMode(DRIVE_6_MOTOR);
             }
-        } else if (master.get_digital(DIGITAL_R2)) {
-            if (pto.getCurrentDriveMode() == DRIVE_6_MOTOR) {
-                Intake2.move(-127);
+        } else if (master.get_digital(DIGITAL_R1)) {
+            if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
+                IntakePTO.move(127);
+                DrivePTO.move(127);
             } else {
-                pto.setDriveMode(DRIVE_6_MOTOR);
+                pto.setDriveMode(DRIVE_4_MOTOR);
             }
         } else {
             IntakePTO.brake();
             DrivePTO.brake();
+            Midgoal.retract();
         }
 
 
@@ -92,12 +88,12 @@ int OutakeControls() {
 }
 
 
-// --------- LOADER + LIFTER ---------
+// --------- LOADER ---------
 int Loadercontrols() {
     static bool Loader1 = false;
 
     while (true) {
-        if (master.get_digital_new_press(DIGITAL_Y)) {
+        if (master.get_digital_new_press(DIGITAL_B)) {
             Loader1 = !Loader1;
             if (Loader1) {
                 Loader.extend();
@@ -115,7 +111,7 @@ int Hookcontrols() {
     static bool wing = false;
 
     while (true) {
-        if (master.get_digital_new_press(DIGITAL_DOWN)) {
+        if (master.get_digital_new_press( DIGITAL_L2)) {
             wing = !wing;
             if (wing)
                 Hook.extend();

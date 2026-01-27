@@ -7,8 +7,9 @@ float tovolt(float percentage);
 int DriveTrainControls();
 int IntakeControls();
 int OutakeControls();
+int IntakeRevControls();
+int MidControls();
 int DrivePTOcontrols();
 int Loadercontrols();
-int liftercontrols();
 int Hookcontrols();
 

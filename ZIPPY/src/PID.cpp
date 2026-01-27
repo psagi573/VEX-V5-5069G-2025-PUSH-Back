@@ -13,7 +13,7 @@ T clamp(T value, T minVal, T maxVal)
     return value;
 }
 
-PID::PID(double p, double i, double d)
+Praj::Praj(double p, double i, double d)
 {
     kP = p;
     kI = i;
@@ -23,14 +23,14 @@ PID::PID(double p, double i, double d)
     prevDerivative = 0;
 }
 
-void PID::reset()
+void Praj::reset()
 {
     integral = 0;
     prevError = 0;
     prevDerivative = 0;
 }
 
-double PID::compute(double target, double current, bool turn)
+double Praj::compute(double target, double current, bool turn)
 {
     double error = target - current;
 

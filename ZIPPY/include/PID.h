@@ -1,7 +1,7 @@
 #pragma once
 #include "main.h"
 
-class PID
+class Praj
 {
 private:
 public:
@@ -10,7 +10,7 @@ public:
     double prevError;
     double error;
     double prevDerivative;
-    PID(double p, double i, double d);
+    Praj(double p, double i, double d);
     void reset();
     double compute(double target, double current, bool turn = false);
 };

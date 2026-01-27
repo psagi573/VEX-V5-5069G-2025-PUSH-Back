@@ -12,18 +12,17 @@
 const double wheelTrack = 11.75; // in inches (left-right distance)
 
 // PID class values (Existing values)
-PID distPID(0.07, 0, 0.2);
-PID distPIDnew(0.13, 0, 0.9);
-PID fastTurnPID(0.03, 0, 0.23);
+Praj distPID(0.07, 0, 0.2);
+Praj distPIDnew(0.13, 0, 0.9);
+Praj fastTurnPID(0.03, 0, 0.23);
 
-PID slowTurnPID(0.03, 0, 0.28);
+Praj slowTurnPID(0.03, 0, 0.28);
 
-PID arcPID(0.15, 0, 0);
-PID sweepPID(0.05, 0, 0.5);
+Praj arcPID(0.15, 0, 0);
+Praj sweepPID(0.05, 0, 0.5);
 
-PID drivePID(0.05, 0, 0.6);
-PID headingPID(0.03, 0.0001, 0.23);
-
+Praj drivePID(0.05, 0, 0.6);
+Praj headingPID(0.03, 0.0001, 0.23);
 
 /**
  * @brief Clamps a value between a minimum and maximum.

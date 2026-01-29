@@ -12,4 +12,5 @@ int MidControls();
 int DrivePTOcontrols();
 int Loadercontrols();
 int Hookcontrols();
+int skillsMidControls();
 

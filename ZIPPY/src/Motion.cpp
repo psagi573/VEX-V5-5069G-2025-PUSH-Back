@@ -180,7 +180,7 @@ float getAverageDistance()
 void drive(double distInches, double timeout)
 {
     distPID.reset();
-    double target = distInches-0.5; 
+    double target = distInches-0.5;
     double start = getAverageDistance();
     double lastError = 0;
     int elapsed = 0;

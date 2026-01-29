@@ -33,14 +33,12 @@ pros::MotorGroup Intake2({-11, 20}, pros::MotorGears::blue); //LIntake, RIntake
 pros::MotorGroup Intake4({-11, 20, 18, -13}, pros::MotorGears::blue); //LIntake, RIntake, PTOR8, PTOL3
 // Sensor definitions
 pros::Imu inertial19(6);
-pros::Rotation Yaxis(5);
+pros::Rotation Yaxis(4);
 pros::Rotation Xaxis(-17);
-pros::Distance Yeye(3);
-pros::Distance Xeye(9);
 
 // Pneumatic definitions
 pros::adi::Pneumatics DrivePTOPiston('B', false);
-pros::adi::Pneumatics IntakePTOPiston('A', true);
+pros::adi::Pneumatics IntakePTOPiston('A', false);
 pros::adi::Pneumatics Midgoal('G', false);
 pros::adi::Pneumatics Loader('F', false);
 pros::adi::Pneumatics Hook('H', false);

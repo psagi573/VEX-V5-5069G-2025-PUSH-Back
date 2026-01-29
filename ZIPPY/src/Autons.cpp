@@ -8,7 +8,5 @@
 
 
 void Skills(){
-    drive(24,1000);
-    pros::delay(500);
-    chassis.turnToHeading(90,1000);
+    
 }

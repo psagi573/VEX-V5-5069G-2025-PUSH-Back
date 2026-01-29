@@ -97,8 +97,6 @@ extern pros::MotorGroup Intake4;
 extern pros::Imu inertial19;
 extern pros::Rotation Yaxis;
 extern pros::Rotation Xaxis;
-extern pros::Distance Yeye;
-extern pros::Distance Xeye;
 extern pros::adi::Pneumatics DrivePTOPiston;
 extern pros::adi::Pneumatics IntakePTOPiston;
 extern pros::adi::Pneumatics Midgoal;

@@ -52,7 +52,7 @@ void setDrivePTO(double left, double right) {
     auto rightMotors = pto.getActiveRightMotors();
 
     for (auto* m : leftMotors)
-        m->move_voltage(left * 120); // Convert volts to mV
+        m->move_voltage(left * 100); // Convert volts to mV
 
     for (auto* m : rightMotors)
         m->move_voltage(right * 120); // Convert volts to mV

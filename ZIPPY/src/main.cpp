@@ -3,6 +3,9 @@
 #include "Motion.h"
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/distance.hpp"
+#include "pros/motors.h"
+#include "pros/rtos.h"
+#include "pros/rtos.hpp"
 #include <utility>
 
 // ----------------- GLOBALS -----------------
@@ -91,15 +94,28 @@ void competition_initialize() {}
 void autonomous() {
 
 
-  chassis.moveToPoint(24, 24, 3000);
-  // chassis.moveToPose(0, -40, 270, 3000, {.forwards = false}, false);
-  // pros::delay(300);
-  // Intake2.move(127);
-  // Loader.extend();
-  // chassis.waitUntilDone();
-  // chassis.moveToPoint(-10, -40, 1000);
-  // pros::delay(800);
-  // chassis.moveToPoint(25, -40, 1000);
+
+  Intake2.move(127);
+  chassis.moveToPoint(0, -40, 1000, {.forwards =false}, false);
+  //pros::delay(300);
+  Loader.extend();
+  pros::delay(100);
+  chassis.turnToHeading(270, 1000);
+  //pros::Task::delay(200);
+  chassis.moveToPoint(-17, -42, 1000); ///into match loader
+  pros::Task::delay(800);
+  chassis.moveToPoint(25, -39, 1500, {.forwards = false}, false);/// long goal
+  //chassis.turnToHeading(270, 1000);
+  //pros::Task::delay(100);
+  chassis.cancelMotion();
+  pto.setDriveMode(DRIVE_4_MOTOR);
+  DrivePTO.move(127);
+// outakes into far long goal 3 blocks
+//chassis.swingToHeading(135, L , 3000);
+  // pros::Task::delay(1000);
+  // Intake2.brake();
+  // DrivePTO.brake();
+  // pto.setDriveMode(DRIVE_6_MOTOR);
 
   //pros::delay(15000); // keep auton alive for skills
 }

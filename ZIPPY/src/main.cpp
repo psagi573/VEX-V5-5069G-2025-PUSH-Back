@@ -18,8 +18,6 @@ PTOManager pto({&L1, &L2, &PTOL3, &LIntake}, {&R6, &R7, &PTOR8, &RIntake}, 'B',
 
 );
 
-
-
 // Drivetrain / LemLib config
 lemlib::Drivetrain drivetrain(&L, &R, 12.25, lemlib::Omniwheel::NEW_325, 480,
                               0.15853);
@@ -30,7 +28,8 @@ lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, 2, 0.5);
 
 // Odom sensors
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr,
-                            &horizontal_tracking_wheel, nullptr, &inertial19);//6, 5
+                            &horizontal_tracking_wheel, nullptr,
+                            &inertial19); // 6, 5
 
 // PID settings
 lemlib::ControllerSettings lateral_controller(4.8, 0, 25, 0, 0, 0, 0, 0,
@@ -91,34 +90,7 @@ void disabled() {}
 void competition_initialize() {}
 
 // ----------------- AUTONOMOUS -----------------
-void autonomous() {
-
-
-
-  Intake2.move(127);
-  chassis.moveToPoint(0, -40, 1000, {.forwards =false}, false);
-  //pros::delay(300);
-  Loader.extend();
-  pros::delay(100);
-  chassis.turnToHeading(270, 1000);
-  //pros::Task::delay(200);
-  chassis.moveToPoint(-17, -42, 1000); ///into match loader
-  pros::Task::delay(800);
-  chassis.moveToPoint(25, -39, 1500, {.forwards = false}, false);/// long goal
-  //chassis.turnToHeading(270, 1000);
-  //pros::Task::delay(100);
-  chassis.cancelMotion();
-  pto.setDriveMode(DRIVE_4_MOTOR);
-  DrivePTO.move(127);
-// outakes into far long goal 3 blocks
-//chassis.swingToHeading(135, L , 3000);
-  // pros::Task::delay(1000);
-  // Intake2.brake();
-  // DrivePTO.brake();
-  // pto.setDriveMode(DRIVE_6_MOTOR);
-
-  //pros::delay(15000); // keep auton alive for skills
-}
+void autonomous() { SAWP(); }
 
 // ----------------- OPERATOR CONTROL -----------------
 void opcontrol() {

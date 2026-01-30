@@ -58,9 +58,32 @@ void SAWP(){
                       false); 
   chassis.cancelMotion();
   pto.setDriveMode(DRIVE_4_MOTOR);
+  Intake2.move(-127);
+  pros::delay(300);
+  Midgoal.retract();
   IntakePTO.move(85);
   DrivePTO.move(-85); // outakes into far long goal 3 blocks
+  pros::delay(500);
+  IntakePTO.brake();  
+  DrivePTO.brake();
+  pto.setDriveMode(DRIVE_6_MOTOR);
+  Midgoal.extend();
+  ///////////////////SECOND LOADER /////////////////////////
+  chassis.moveToPoint(4, 51, 2000, {.forwards = true}, false);
+  IntakePTO.move(127);
+  chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
+  chassis.moveToPoint(-17, 49, 1000); /// into match loader
+  pros::Task::delay(800);
+
+
+  ///////////SECOND LONG GOAL 4 BLOCKS///////////////////////
+  chassis.moveToPoint(25, 49, 1500, {.forwards = false}, false); /// long goal
+  chassis.cancelMotion();
+  pto.setDriveMode(DRIVE_4_MOTOR);
+  DrivePTO.move(127); // outakes into far long goal 3 blocks
   pros::delay(1000);
   DrivePTO.brake();
   pto.setDriveMode(DRIVE_6_MOTOR);
+  Loader.retract();
+
 }

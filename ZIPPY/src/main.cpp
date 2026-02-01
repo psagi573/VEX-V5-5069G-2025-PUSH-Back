@@ -88,21 +88,187 @@ void disabled() {}
 
 // ----------------- COMPETITION INIT -----------------
 void competition_initialize() {
-    pros::lcd::initialize();
-  chassis.calibrate(true);
-  DrivetrainL.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
-  DrivetrainR.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
-  chassis.setPose(0, 0, 0);
-  
-  // Start Odom debug task
-  odomTask = new pros::Task(odomDebug);
+  pros::lcd::print(1, "Auton: SAWP");
+  pros::lcd::print(2, "IMU ready: %d", !inertial19.is_calibrating());
 
 }
 
 // ----------------- AUTONOMOUS -----------------
 void autonomous() { 
+
+
+  // ////////////////right wing 7/////////////
+  // Intake2.move(127);
+  // chassis.moveToPoint(13, 27, 1000, {.forwards = true}, true);
+  // pros::delay(800);
+  // Loader.extend(); 
+  // chassis.waitUntilDone();
+  // chassis.turnToHeading(150, 900, {.maxSpeed=127}, false);
+  // chassis.moveToPoint(38, 3, 1500,{.forwards = true}, false); 
+  // chassis.turnToHeading(180, 900, {.maxSpeed = 127}, false);
+  // chassis.moveToPoint(38, -20, 1100,{.forwards = true}, false);
+  // pros::delay(500);///match loader
+  // chassis.moveToPoint(39.5, 22, 1500,{.forwards = false}, false);
+  // chassis.cancelMotion();
+  // pto.setDriveMode(DRIVE_4_MOTOR);
+  // DrivePTO.move(127); // outakes into far long goal 3 blocks
+  // pros::delay(1500);
+  // DrivePTO.brake();
+  // pto.setDriveMode(DRIVE_6_MOTOR);
+  // Loader.retract();
+  // chassis.moveToPoint(38.5, 3, 1000, {.forwards = true}, false);
+  // chassis.turnToHeading(135, 1000);
+  // chassis.moveToPoint(28, 18, 1000,{.forwards = false}, false);
+  // chassis.turnToHeading(180, 1000);
+  // chassis.moveToPoint(32, 33, 1000,{.forwards = false}, false);
+  // chassis.turnToHeading(150, 1000);
+
+
+  /////////////////////left 4 wing//////////////////////
+
+  Intake2.move(127);
+  chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
+  pros::delay(650);
+  Loader.extend();
+  chassis.waitUntilDone();
+  chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
+  chassis.moveToPoint(-37, 3, 1500,{.forwards = true}, false);  
+  chassis.turnToHeading(-180, 900);
+  chassis.moveToPoint(-37, 23, 1500,{.forwards = false}, false);
+  chassis.cancelMotion();
+  pto.setDriveMode(DRIVE_4_MOTOR);
+  DrivePTO.move(127); // outakes into far long goal 3 blocks
+  pros::delay(900);
+  DrivePTO.brake();
+  pto.setDriveMode(DRIVE_6_MOTOR);
+  Loader.retract();
+  chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
+  chassis.moveToPoint(-48, -3, 1500,{.forwards = true
+  }, false);  
+  chassis.turnToHeading(-180, 900);
+  chassis.moveToPoint(-48, 38, 1000, {.forwards = false}, false);
+  chassis.turnToHeading(135, 1000);
+
+
+
+
+
+
+  ////////////////////////left wing 7/////////////////
+  // Intake2.move(127);
+  // chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, false);
+  // Loader.extend();
+  // chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
+  // chassis.moveToPoint(-39, 3, 1500,{.forwards = true}, false);  
+  // chassis.turnToHeading(-180, 900);
+  // chassis.moveToPoint(-35, -20, 1100,{.forwards = true}, false);
+  // pros::delay(800);///match loader
+  // chassis.moveToPoint(-35, 23, 1500,{.forwards = false}, false);
+  // chassis.turnToHeading(180, 1000);
+  // chassis.cancelMotion();
+  // pto.setDriveMode(DRIVE_4_MOTOR);
+  // DrivePTO.move(127); // outakes into far long goal 3 blocks
+
+
+
+
+
+
+
+
+
+
+
+
+
   ////////////////////////SOLO AUTON WIN POINT//////////////////////////////
-  SAWP(); 
+//   Intake2.move(127);
+//   chassis.moveToPoint(0, -40, 1000, {.forwards = false}, false);
+//   Loader.extend();
+//   pros::delay(100);
+//   chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
+
+
+// /////////////////////// MATCH LOADER//////////////////////////////////
+
+//   chassis.moveToPoint(-17, -42, 1000); /// into match loader
+//   pros::Task::delay(800);
+//   chassis.moveToPoint(25, -39, 1500, {.forwards = false}, false); /// long goal
+  
+
+//   ///////////////////////////LONG GOAL 4 BLOCKS//////////////////////////////
+//   chassis.cancelMotion();
+//   pto.setDriveMode(DRIVE_4_MOTOR);
+//   DrivePTO.move(127); // outakes into far long goal 3 blocks
+//   pros::delay(1000);
+//   DrivePTO.brake();
+//   pto.setDriveMode(DRIVE_6_MOTOR);
+//   Loader.retract();
+
+
+//   ///////////////////////////FIRST 3 BLOCKS//////////////////////////////
+
+
+// /////TUNE THE MOTION CHAINING PART, JUST ADDED IT NOW, NOT TUNED/////
+
+
+
+//   chassis.swingToPoint(31, -16, lemlib::DriveSide::RIGHT, 1500, {.maxSpeed = 127});
+//   chassis.moveToPoint(31, -16, 1000, {.forwards = true, .maxSpeed = 127}, true); // 3 bloacks
+//   pros::delay(700);
+//   Loader.extend();
+//   chassis.waitUntilDone();
+//   chassis.turnToHeading(0, 1000, {.maxSpeed = 127}, false);
+//   Loader.retract();
+
+
+
+
+// /////////////////////////////////////////////FROM HERE ON OUT THE CODE IT IS NOT TUNED/////////////////////////////////////
+
+
+//   // ///////////////////////////SECOND 3 BLOCKS//////////////////////////////
+//    chassis.moveToPoint(28, 29, 1500, {.forwards = true}, true);
+//   pros::delay(800);
+//   Loader.extend();
+//   chassis.waitUntilDone();
+//   Intake2.brake();
+//   chassis.turnToHeading(315, 1000, {.maxSpeed = 127}, false);
+
+
+
+  // //////////////////////////MID GOAL 2 BLOCKS//////////////////////////////
+  // chassis.moveToPoint(40, 14, 1200, {.forwards = false},
+  //                     false); 
+  // chassis.cancelMotion();
+  // pto.setDriveMode(DRIVE_4_MOTOR);
+  // Intake2.move(-127);
+  // pros::delay(300);
+  // Midgoal.retract();
+  // IntakePTO.move(85);
+  // DrivePTO.move(-85); // outakes into mid goal 2-3 blocks
+  // pros::delay(500);  
+  // IntakePTO.brake();  DrivePTO.brake();
+  // pto.setDriveMode(DRIVE_6_MOTOR);
+  // Midgoal.extend();
+  // ///////////////////SECOND LOADER /////////////////////////
+  // chassis.moveToPoint(4, 51, 2000, {.forwards = true}, false);
+  // IntakePTO.move(127);
+  // chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
+  // chassis.moveToPoint(-17, 49, 1000); /// into match loader
+  // pros::Task::delay(800);
+
+
+  // ///////////SECOND LONG GOAL 4 BLOCKS///////////////////////
+  // chassis.moveToPoint(25, 49, 1500, {.forwards = false}, false); /// long goal
+  // chassis.cancelMotion();
+  // pto.setDriveMode(DRIVE_4_MOTOR);
+  // DrivePTO.move(127); // outakes into far long goal 3 blocks
+  // pros::delay(1000);
+  // DrivePTO.brake();
+  // pto.setDriveMode(DRIVE_6_MOTOR);
+  // Loader.retract();
+
 }
 
 // ----------------- OPERATOR CONTROL -----------------

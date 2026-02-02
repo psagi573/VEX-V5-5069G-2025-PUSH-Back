@@ -2,4 +2,5 @@
 #include "main.h"
 
 void SAWP();
+void skills();
 

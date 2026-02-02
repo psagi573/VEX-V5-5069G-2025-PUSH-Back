@@ -95,6 +95,7 @@ void competition_initialize() {
 
 // ----------------- AUTONOMOUS -----------------
 void autonomous() { 
+  SAWP();
 
 
   // ////////////////right wing 7/////////////
@@ -126,28 +127,28 @@ void autonomous() {
 
   /////////////////////left 4 wing//////////////////////
 
-  Intake2.move(127);
-  chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
-  pros::delay(650);
-  Loader.extend();
-  chassis.waitUntilDone();
-  chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
-  chassis.moveToPoint(-37, 3, 1500,{.forwards = true}, false);  
-  chassis.turnToHeading(-180, 900);
-  chassis.moveToPoint(-37, 23, 1500,{.forwards = false}, false);
-  chassis.cancelMotion();
-  pto.setDriveMode(DRIVE_4_MOTOR);
-  DrivePTO.move(127); // outakes into far long goal 3 blocks
-  pros::delay(900);
-  DrivePTO.brake();
-  pto.setDriveMode(DRIVE_6_MOTOR);
-  Loader.retract();
-  chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
-  chassis.moveToPoint(-48, -3, 1500,{.forwards = true
-  }, false);  
-  chassis.turnToHeading(-180, 900);
-  chassis.moveToPoint(-48, 38, 1000, {.forwards = false}, false);
-  chassis.turnToHeading(135, 1000);
+  // Intake2.move(127);
+  // chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
+  // pros::delay(650);
+  // Loader.extend();
+  // chassis.waitUntilDone();
+  // chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
+  // chassis.moveToPoint(-37, 3, 1500,{.forwards = true}, false);  
+  // chassis.turnToHeading(-180, 900);
+  // chassis.moveToPoint(-37, 23, 1500,{.forwards = false}, false);
+  // chassis.cancelMotion();
+  // pto.setDriveMode(DRIVE_4_MOTOR);
+  // DrivePTO.move(127); // outakes into far long goal 3 blocks
+  // pros::delay(900);
+  // DrivePTO.brake();
+  // pto.setDriveMode(DRIVE_6_MOTOR);
+  // Loader.retract();
+  // chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
+  // chassis.moveToPoint(-48, -3, 1500,{.forwards = true
+  // }, false);  
+  // chassis.turnToHeading(-180, 900);
+  // chassis.moveToPoint(-48, 38, 1000, {.forwards = false}, false);
+  // chassis.turnToHeading(135, 1000);
 
 
 
@@ -168,16 +169,6 @@ void autonomous() {
   // chassis.cancelMotion();
   // pto.setDriveMode(DRIVE_4_MOTOR);
   // DrivePTO.move(127); // outakes into far long goal 3 blocks
-
-
-
-
-
-
-
-
-
-
 
 
 

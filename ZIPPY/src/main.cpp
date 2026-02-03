@@ -32,9 +32,15 @@ lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr,
                             &inertial19); // 6, 5
 
 // PID settings
-lemlib::ControllerSettings lateral_controller(4.8, 0, 25, 0, 0, 0, 0, 0,
-                                              100); // slew-80
+lemlib::ControllerSettings lateral_controller(8, 0, 35, 0, 0, 0, 0, 0,
+                                              0); // slew-80
 
+
+// lemlib::ControllerSettings lateral_controller(4.8, 0, 25, 0, 0, 0, 0, 0, 0); 
+//  
+// 
+// lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0, 0,
+//                                              0);                                             
 lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0, 0,
                                               0);
 
@@ -95,8 +101,8 @@ void competition_initialize() {
 
 // ----------------- AUTONOMOUS -----------------
 void autonomous() { 
-  SAWP();
 
+  skills();
 
   // ////////////////right wing 7/////////////
   // Intake2.move(127);

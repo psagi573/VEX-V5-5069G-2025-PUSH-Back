@@ -102,7 +102,10 @@ void competition_initialize() {
 // ----------------- AUTONOMOUS -----------------
 void autonomous() { 
 
-  SAWP();
+  //LeftWing();
+  RightWing();
+  //RightLOW();
+  //SAWP();
   //skills();
 
   // ////////////////right wing 7/////////////

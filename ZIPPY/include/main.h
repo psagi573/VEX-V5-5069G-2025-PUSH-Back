@@ -103,6 +103,9 @@ extern pros::adi::Pneumatics Midgoal;
 extern pros::adi::Pneumatics Loader;
 extern pros::adi::Pneumatics Hook;
 
+extern pros::Distance RightDist;
+extern pros::Distance LeftDist;
+
 // declarations for classes
 extern PTOManager pto;
 // lemlib declarations for classes

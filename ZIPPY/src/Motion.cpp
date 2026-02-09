@@ -12,8 +12,8 @@
 const double wheelTrack = 11.75; // in inches (left-right distance)
 
 // PID class values (Existing values)
-Praj distPID(0.07, 0, 0.2);
-Praj distPIDnew(0.13, 0, 0.9);
+Praj distPID(7, 0, 0);
+
 Praj fastTurnPID(0.03, 0, 0.23);
 
 Praj slowTurnPID(0.03, 0, 0.28);
@@ -206,7 +206,7 @@ void drive(double distInches, double timeout)
         linearOut = minVolt(linearOut);
         double leftVolt = linearOut;
         double rightVolt = linearOut;
-        setDrivePTO(leftVolt, rightVolt);
+        setDrive(leftVolt, rightVolt);
         // Exit conditions
         if ((fabs(error) < 1 && fabs(error - lastError) < 0.1) || elapsed > timeout)
             break;
@@ -215,7 +215,7 @@ void drive(double distInches, double timeout)
         pros::delay(10);
     }
 
-    stopsPTO();
+    stops();
 }
 
 void driveheading(double distInches, double timeout, double targetHeading)

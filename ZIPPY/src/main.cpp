@@ -102,11 +102,13 @@ void competition_initialize() {
 // ----------------- AUTONOMOUS -----------------
 void autonomous() { 
 
+
+  //drive(24, 1000);
   //LeftWing();
-  RightWing();
+  //RightWing();
   //RightLOW();
   //SAWP();
-  //skills();
+  skills();
 
   // ////////////////right wing 7/////////////
   // Intake2.move(127);

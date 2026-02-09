@@ -35,6 +35,8 @@ pros::MotorGroup Intake4({-11, 20, 18, -13}, pros::MotorGears::blue); //LIntake,
 pros::Imu inertial19(6);
 pros::Rotation Yaxis(4);
 pros::Rotation Xaxis(-17);
+pros::Distance RightDist( 5);
+pros::Distance LeftDist(15); 
 
 // Pneumatic definitions
 pros::adi::Pneumatics DrivePTOPiston('B', false);

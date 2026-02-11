@@ -12,7 +12,7 @@
 const double wheelTrack = 11.75; // in inches (left-right distance)
 
 // PID class values (Existing values)
-Praj distPID(7, 0, 0);
+Praj distPID(0.7, 0, 0);
 
 Praj fastTurnPID(0.03, 0, 0.23);
 
@@ -87,17 +87,17 @@ void stopsPTOhold() {
 void setDrive(double left, double right)
 {
     // Clamp values for safety
-    left = clamp(left, -12.0, 12.0);
-    right = clamp(right, -12.0, 12.0);
+    left = clamp(left, -127.0, 127.0);
+    right = clamp(right, -127.0, 127.0);
 
     // Send voltage to motors (volt units)
-    L1.move_voltage(left * 120);
-    L2.move_voltage(left * 120);
-    PTOL3.move_voltage(left * 120);
+    L1.move(left);
+    L2.move(left);
+    PTOL3.move(left);
 
-    R6.move_voltage(right * 120);
-    R7.move_voltage(right * 120);
-    PTOR8.move_voltage(right * 120);
+    R6.move(right);
+    R7.move(right);
+    PTOR8.move(right);
 }
 
 
@@ -120,7 +120,7 @@ void stops()
  */
 double minVolt(double v)
 {
-    const double MIN_V = 2.0;
+    const double MIN_V = 30.0;
     if (v > -MIN_V && v < 0)
         return -MIN_V;
     if (v > 0 && v < MIN_V)
@@ -130,7 +130,7 @@ double minVolt(double v)
 
 double minVoltturn(double v)
 {
-    const double MIN_V = 3.0;
+    const double MIN_V = 30.0;
     if (v > -MIN_V && v < 0)
         return -MIN_V;
     if (v > 0 && v < MIN_V)
@@ -180,15 +180,15 @@ float getAverageDistance()
 void drive(double distInches, double timeout)
 {
     distPID.reset();
-    double target = distInches-0.5;
-    double start = getAverageDistance();
+    double target = distInches;
+    double start = chassis.getPose().y;
     double lastError = 0;
     int elapsed = 0;
 
     while (true)
     {
         // Current pose and distance traveled
-        double current= getAverageDistance();
+        double current= chassis.getPose().y;
         double traveled = current-start;
         
         if (distInches < 0)
@@ -202,13 +202,13 @@ void drive(double distInches, double timeout)
         // Clamp output between -1 and 1
         linearOut = clamp(linearOut, -1.0, 1.0);
         // Scale to volts
-        linearOut = linearOut * 12.0;
+        linearOut = linearOut * 127.0;
         linearOut = minVolt(linearOut);
         double leftVolt = linearOut;
         double rightVolt = linearOut;
         setDrive(leftVolt, rightVolt);
         // Exit conditions
-        if ((fabs(error) < 1 && fabs(error - lastError) < 0.1) || elapsed > timeout)
+        if (fabs(error) < 0.5|| fabs(error - lastError) < 0.1 || elapsed > timeout)
             break;
         lastError = error;
         elapsed += 10;

@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "main.h"
 
+
+
 void skills(){
   Intake2.move(127);
   chassis.moveToPoint(0, -36, 1000, {.forwards = false}, true);
@@ -32,7 +34,7 @@ void skills(){
   chassis.moveToPoint(73, -53.5, 2000, {.forwards = false}, false);
   chassis.moveToPoint( 88, -36, 1000, {.forwards = false}, false);
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
-  chassis.moveToPoint(68, -34, 1100, {.forwards = false}, false);
+  chassis.moveToPoint(65, -34, 1100, {.forwards = false}, false);
   //chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
 
 
@@ -52,11 +54,11 @@ void skills(){
 
 
   ///////////////////////////MATCH LOADER 2/////////////////////////////////////
-  chassis.moveToPoint(98, -35, 1500, {.forwards = true, .maxSpeed =110}, false);//////AT LONG GOAL SIDE
+  chassis.moveToPoint(chassis.getPose().x + 25, chassis.getPose().y, 1500, {.forwards = true, .maxSpeed =110}, false);//////AT LONG GOAL SIDE
   pros::delay(800);
-  chassis.moveToPoint(100, -35, 700, {.forwards = true}, false);//////AT LONG GOAL SIDE
+  chassis.moveToPoint(chassis.getPose().x + 2, chassis.getPose().y, 700, {.forwards = true}, false);//////AT LONG GOAL SIDE
   pros::delay(500);
-  chassis.moveToPoint(68,-34, 1500, {.forwards = false}, false);//////AT LONG GOAL SIDE
+  chassis.moveToPoint(65,-34, 1500, {.forwards = false}, false);//////AT LONG GOAL SIDE
 
 
 
@@ -79,9 +81,9 @@ void skills(){
   chassis.moveToPoint(81, 58, 4000, {.forwards = false}, false); 
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
   Intake2.move(127);
-  chassis.moveToPoint(100, 59, 1000, {.forwards = true}, false);////into match loader
+  chassis.moveToPoint(101.5, 59, 1000, {.forwards = true}, false);////into match loader
   pros::delay(1000);
-  chassis.moveToPoint(101, 58, 700, {.forwards = true}, false);////into match loader
+  chassis.moveToPoint(102.5, 58, 700, {.forwards = true}, false);////into match loader
   pros::delay(300);
 
 

@@ -25,16 +25,16 @@ void skills(){
   // chassis.moveToPoint(0, -38, 1500, {.forwards = false}, false); 
   // Intake2.brake();
   // chassis.turnToHeading(315, 1000);
-  chassis.moveToPoint(13, -53.5, 1500, {.forwards = false, .minSpeed = 90, .earlyExitRange = 9.5}, false);
+  chassis.moveToPoint(13, -54.5, 1500, {.forwards = false, .minSpeed = 90, .earlyExitRange = 9.5}, false);
 
   ///////////////////////////ACROSS FIELD//////////////////////////////
   chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
   Loader.retract();
   Intake2.brake();
-  chassis.moveToPoint(73, -53.5, 2000, {.forwards = false}, false);
+  chassis.moveToPoint(73, -53.5, 1800, {.forwards = false}, false);
   chassis.moveToPoint( 88, -36, 1000, {.forwards = false}, false);
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
-  chassis.moveToPoint(65, -34, 1100, {.forwards = false}, false);
+  chassis.moveToPoint(63, -31.5, 1100, {.forwards = false}, false);
   //chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
 
 
@@ -47,18 +47,21 @@ void skills(){
   pros::delay(100);
   Intake2.move(127);
   DrivePTO.move(127); // outakes into far long goal 3 blocks
-  pros::delay(3000);
+  pros::delay(2500);
   DrivePTO.brake();
   pto.setDriveMode(DRIVE_6_MOTOR);
+
+ // chassis.setPose(65, -34, 90);
 
 
 
   ///////////////////////////MATCH LOADER 2/////////////////////////////////////
-  chassis.moveToPoint(chassis.getPose().x + 25, chassis.getPose().y, 1500, {.forwards = true, .maxSpeed =110}, false);//////AT LONG GOAL SIDE
-  pros::delay(800);
-  chassis.moveToPoint(chassis.getPose().x + 2, chassis.getPose().y, 700, {.forwards = true}, false);//////AT LONG GOAL SIDE
-  pros::delay(500);
-  chassis.moveToPoint(65,-34, 1500, {.forwards = false}, false);//////AT LONG GOAL SIDE
+  //chassis.moveToPoint(80, -30, 1500, {.forwards = true, .minSpeed =90, .earlyExitRange = 9.5}, false);//////AT LONG GOAL SIDE
+  //chassis.turnToHeading(90, 700, {.maxSpeed =127}, false);
+  chassis.moveToPoint(96.5, -31, 1500, {.forwards = true}, false);//////AT LONG GOAL SIDE
+  chassis.moveToPoint(101.5, -31 , 1500, {.forwards = true}, false);//////AT LONG GOAL SIDE
+  pros::delay(1500);
+  chassis.moveToPoint(62,-31.5, 1500, {.forwards = false}, false);//////AT LONG GOAL SIDE
 
 
 
@@ -78,26 +81,23 @@ void skills(){
   /////////////////////GOING TO THE NEXT MATCH LOADER 3//////////////////////////
   chassis.moveToPoint(82, -36, 1500, {.forwards = true}, false);
   chassis.turnToHeading(180, 1000, {.maxSpeed = 127}, false);
-  chassis.moveToPoint(81, 58, 4000, {.forwards = false}, false); 
+  chassis.moveToPoint(81, 61, 2500, {.forwards = false}, false); 
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
   Intake2.move(127);
-  chassis.moveToPoint(101.5, 59, 1000, {.forwards = true}, false);////into match loader
-  pros::delay(1000);
-  chassis.moveToPoint(102.5, 58, 700, {.forwards = true}, false);////into match loader
-  pros::delay(300);
+  chassis.moveToPoint(102, 60, 1000, {.forwards = true}, false);////into match loader
+  chassis.moveToPoint(104, 60.5, 700, {.forwards = true}, false);////into match loader
+  pros::delay(2000);
 
 
   ///////////////////////////SET UP TO OTHER SIDE//////////////////////////////
-  chassis.moveToPoint(78, 73, 1000, {.forwards = false}, false);
+  chassis.moveToPoint(80, 75, 1000, {.forwards = false}, false);
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
   Loader.retract();
-  chassis.moveToPoint(15, 73, 1000, {.forwards = false}, false);
-  chassis.moveToPoint(5, 59, 2500, {.forwards = false}, true);
-  chassis.waitUntilDone();
+  chassis.moveToPoint(15, 77, 1000, {.forwards = false}, false);
+  chassis.moveToPoint(10, 52, 2500, {.forwards = false}, false);
   chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
-  chassis.moveToPoint(22, 59, 1500, {.forwards = false}, false);////long goal side
+  chassis.moveToPoint(30, 53, 1500, {.forwards = false}, false);////long goal side
   Loader.extend();
-  chassis.waitUntilDone();
 
   // /////////////////////////SCORE LONG GOAL 6 BLOCKS//////////////////////////////
 

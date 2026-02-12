@@ -33,7 +33,7 @@ pros::MotorGroup Intake2({-15, 20}, pros::MotorGears::blue); //LIntake, RIntake
 pros::MotorGroup Intake4({-15, 20, 18, -13}, pros::MotorGears::blue); //LIntake, RIntake, PTOR8, PTOL3
 // Sensor definitions
 pros::Imu inertial19(6);
-pros::Rotation Yaxis(14);
+pros::Rotation Yaxis(-14);
 pros::Rotation Xaxis(-17);
 
 // Pneumatic definitions

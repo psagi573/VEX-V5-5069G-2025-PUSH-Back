@@ -34,7 +34,7 @@ void skills() {
   Loader.retract();
   Intake2.brake();
   chassis.moveToPoint(73, -53.5, 1800, {.forwards = false}, false);
-  chassis.moveToPoint(88, -33, 1000, {.forwards = false}, false);
+  chassis.moveToPoint(88, -35, 1000, {.forwards = false}, false);
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
   chassis.moveToPoint(58, -35, 1100, {.forwards = false}, false); //-31.5
   pros::delay(400);
@@ -90,24 +90,23 @@ void skills() {
   chassis.turnToHeading(180, 1500, {.maxSpeed = 127}, false);
   chassis.moveToPoint(81, 61, 2500, {.forwards = false}, false);
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
-  chassis.moveToPoint(60, 61, 1500, {.forwards = false}, false);
-  pros::delay(500);
   yhere = chassis.getPose().y;
   Intake2.move(127);
   chassis.moveToPoint(101, yhere - 3, 1000, {.forwards = true, .maxSpeed = 75},
                       false); ////into match loader
+  pros::delay(800);
   chassis.moveToPoint(104, yhere - 3, 700, {.forwards = true},
                       false); ////into match loader
-  pros::delay(2000);
+  pros::delay(8000);
 
-  ///////////////////////////SET UP TO OTHER SIDE//////////////////////////////
+  //////////////////////////SET UP TO OTHER SIDE//////////////////////////////
   chassis.moveToPoint(80, 75, 1000, {.forwards = false}, false);
   chassis.turnToHeading(90, 1000, {.maxSpeed = 127}, false);
   Loader.retract();
   chassis.moveToPoint(10, 77, 1000, {.forwards = false}, false);
   chassis.moveToPoint(8, 52, 2500, {.forwards = false}, false);
   chassis.turnToHeading(270, 1000, {.maxSpeed = 127}, false);
-  chassis.moveToPoint(33, yhere - 7, 1500, {.forwards = false},
+  chassis.moveToPoint(35.5, yhere - 10, 1500, {.forwards = false},
                       false); ////long goal side
   Loader.extend();
   // yhere = chassis.getPose().y;

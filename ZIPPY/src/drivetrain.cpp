@@ -172,9 +172,16 @@ int skillsMidControls() {
   while (true) {
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
       if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
+        Loader.extend();
+        IntakePTO.move(-127);
+        DrivePTO.move(-127);
+        pros::delay(500);
+        IntakePTO.brake();
+        DrivePTO.brake();
         Midgoal.extend();
-        IntakePTO.move(75);
-        DrivePTO.move(-55);
+
+        IntakePTO.move(85);
+        DrivePTO.move(-60);
 
         while (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
           pros::delay(10);

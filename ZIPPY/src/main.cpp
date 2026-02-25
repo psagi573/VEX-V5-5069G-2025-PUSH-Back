@@ -2,14 +2,12 @@
 #include "Autons.h"
 #include "Motion.h"
 #include "PROS_Motion.h"
-#include "PROS_Motion.h"
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/distance.hpp"
 #include "pros/motors.h"
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include <utility>
-
 
 // ----------------- GLOBALS -----------------
 
@@ -95,7 +93,7 @@ void disabled() {}
 // ----------------- COMPETITION INIT -----------------
 void competition_initialize() {
   pros::lcd::print(1, "Auton: SAWP");
-  pros::lcd::print(2, "IMU ready: %d", !inertial19.is_calibrating());
+  pros::lcd::print(2, "IMU ready: %d", !inertial19.is_calibrating());//sidih was here hehehehhehe 6767676767667 5069Y
 }
 
 // ----------------- AUTONOMOUS -----------------
@@ -107,7 +105,7 @@ void autonomous() {
   // LeftWing();
   // RightWing();
   // RightLOW();
-  // SAWP();
+  //SAWP();
   skills();
 
   // ////////////////right wing 7/////////////

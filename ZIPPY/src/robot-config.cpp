@@ -32,6 +32,7 @@ pros::MotorGroup Right({19, 16}, pros::MotorGears::blue); //R6, R7
 pros::MotorGroup Intake2({-15, 20}, pros::MotorGears::blue); //LIntake, RIntake
 pros::MotorGroup Intake4({-15, 20, 18, -13}, pros::MotorGears::blue); //LIntake, RIntake, PTOR8, PTOL3
 pros::MotorGroup DrivetrainAll({-12, -11, 13, 15, 16, 19, -18, -20}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake, R6, R7, PTOR8, RIntake
+pros::MotorGroup DrivetrainMain({-12, -11, 13, 16, 19, -18}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake
 // Sensor definitions
 pros::Imu inertial19(6);
 pros::Rotation Yaxis(-14);

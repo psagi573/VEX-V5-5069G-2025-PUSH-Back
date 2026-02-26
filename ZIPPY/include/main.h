@@ -91,6 +91,7 @@ extern pros::MotorGroup Drivetrain;
 extern pros::MotorGroup DrivetrainL;
 extern pros::MotorGroup DrivetrainR;
 extern pros::MotorGroup DrivetrainAll;
+extern pros::MotorGroup DrivetrainMain;
 extern pros::MotorGroup Left;
 extern pros::MotorGroup Right;
 extern pros::MotorGroup Intake2;

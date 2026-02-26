@@ -105,8 +105,8 @@ void autonomous() {
   // LeftWing();
   // RightWing();
   // RightLOW();
-  //SAWP();
-  skills();
+  SAWP();
+  //skills();
 
   // ////////////////right wing 7/////////////
   // Intake2.move(127);

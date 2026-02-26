@@ -150,7 +150,7 @@ int MidControls() {
       if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
         Midgoal.extend();
         IntakePTO.move(85);
-        DrivePTO.move(-85);
+        DrivePTO.move(-45);
 
         while (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
           pros::delay(10);

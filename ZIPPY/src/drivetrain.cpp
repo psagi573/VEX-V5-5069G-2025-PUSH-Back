@@ -149,8 +149,8 @@ int MidControls() {
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
       if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
         Midgoal.extend();
-        IntakePTO.move(85);
-        DrivePTO.move(-45);
+        IntakePTO.move(70);
+        DrivePTO.move(-35);
 
         while (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
           pros::delay(10);
@@ -181,7 +181,7 @@ int skillsMidControls() {
         Midgoal.extend();
 
         IntakePTO.move(85);
-        DrivePTO.move(-55);
+        DrivePTO.move(-50);
 
         while (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
           pros::delay(10);
@@ -189,8 +189,8 @@ int skillsMidControls() {
 
         IntakePTO.brake();
         DrivePTO.brake();
-        Midgoal.retract();
-        pto.setDriveMode(DRIVE_6_MOTOR);
+        //Midgoal.retract();
+        //pto.setDriveMode(DRIVE_6_MOTOR);
       } else {
         pto.setDriveMode(DRIVE_4_MOTOR);
       }

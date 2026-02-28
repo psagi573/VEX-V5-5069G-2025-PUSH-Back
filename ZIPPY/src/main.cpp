@@ -42,7 +42,7 @@ lemlib::ControllerSettings lateral_controller(8, 0, 40, 0, 0, 0, 0, 0,
 // lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0,
 // 0,
 //                                              0);
-lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0, 0,
+lemlib::ControllerSettings angular_controller(3.15, 0.0001, 15, 15, 0, 0, 0, 0,
                                               0);
 
 // Chassis
@@ -103,7 +103,7 @@ void autonomous() {
   // chassis.moveToPoint(0 , 24, 1000);
 
   // LeftWing();
-  // RightWing();
+   //RightWing();
   // RightLOW();
   SAWP();
   //skills();

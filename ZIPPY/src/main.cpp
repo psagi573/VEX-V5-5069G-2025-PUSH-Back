@@ -42,7 +42,7 @@ lemlib::ControllerSettings lateral_controller(8, 0, 40, 0, 0, 0, 0, 0,
 // lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0,
 // 0,
 //                                              0);
-lemlib::ControllerSettings angular_controller(3.15, 0.0001, 15, 15, 0, 0, 0, 0,
+lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0, 0,
                                               0);
 
 // Chassis
@@ -102,49 +102,26 @@ void autonomous() {
   // drive(24, 2000);
   // chassis.moveToPoint(0 , 24, 1000);
 
+
   // LeftWing();
    //RightWing();
   // RightLOW();
-  SAWP();
+  //SAWP();
   //skills();
+  //New();
 
-  // ////////////////right wing 7/////////////
+
+
+////right 4 block wing/////
   // Intake2.move(127);
   // chassis.moveToPoint(13, 27, 1000, {.forwards = true}, true);
-  // pros::delay(800);
+  // pros::delay(700);
   // Loader.extend();
   // chassis.waitUntilDone();
   // chassis.turnToHeading(150, 900, {.maxSpeed=127}, false);
-  // chassis.moveToPoint(38, 3, 1500,{.forwards = true}, false);
-  // chassis.turnToHeading(180, 900, {.maxSpeed = 127}, false);
-  // chassis.moveToPoint(38, -20, 1100,{.forwards = true}, false);
-  // pros::delay(500);///match loader
-  // chassis.moveToPoint(39.5, 22, 1500,{.forwards = false}, false);
-  // chassis.cancelMotion();
-  // pto.setDriveMode(DRIVE_4_MOTOR);
-  // DrivePTO.move(127); // outakes into far long goal 3 blocks
-  // pros::delay(1500);
-  // DrivePTO.brake();
-  // pto.setDriveMode(DRIVE_6_MOTOR);
-  // Loader.retract();
-  // chassis.moveToPoint(38.5, 3, 1000, {.forwards = true}, false);
-  // chassis.turnToHeading(135, 1000);
-  // chassis.moveToPoint(28, 18, 1000,{.forwards = false}, false);
-  // chassis.turnToHeading(180, 1000);
-  // chassis.moveToPoint(32, 33, 1000,{.forwards = false}, false);
-  // chassis.turnToHeading(150, 1000);
-
-  /////////////////////left 4 wing//////////////////////
-
-  // Intake2.move(127);
-  // chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
-  // pros::delay(650);
-  // Loader.extend();
-  // chassis.waitUntilDone();
-  // chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
-  // chassis.moveToPoint(-37, 3, 1500,{.forwards = true}, false);
-  // chassis.turnToHeading(-180, 900);
-  // chassis.moveToPoint(-37, 23, 1500,{.forwards = false}, false);
+  // chassis.moveToPoint(45, 3, 1500,{.forwards = true}, false);
+  // chassis.turnToHeading(180, 800, {.maxSpeed = 127},false);
+  // chassis.moveToPoint(45, 23, 1500,{.forwards = false}, false);
   // chassis.cancelMotion();
   // pto.setDriveMode(DRIVE_4_MOTOR);
   // DrivePTO.move(127); // outakes into far long goal 3 blocks
@@ -152,12 +129,63 @@ void autonomous() {
   // DrivePTO.brake();
   // pto.setDriveMode(DRIVE_6_MOTOR);
   // Loader.retract();
-  // chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
-  // chassis.moveToPoint(-48, -3, 1500,{.forwards = true
+  // chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000, {.minSpeed = 90, .earlyExitRange = 20}, false);
+  // chassis.moveToPoint(40, 0, 1500,{.forwards = true, .minSpeed = 90, .earlyExitRange = 9.5
   // }, false);
-  // chassis.turnToHeading(-180, 900);
-  // chassis.moveToPoint(-48, 38, 1000, {.forwards = false}, false);
+  // chassis.turnToHeading(183, 700);
+  // chassis.moveToPoint(40, 38, 1000, {.forwards = false}, false);
   // chassis.turnToHeading(135, 1000);
+/*
+  // ////////////////right wing 7/////////////
+   Intake2.move(127);
+   chassis.moveToPoint(13, 27, 1000, {.forwards = true}, true);
+   pros::delay(800);
+   Loader.extend();
+   chassis.waitUntilDone();
+   chassis.turnToHeading(150, 900, {.maxSpeed=127}, false);
+   chassis.moveToPoint(38, 3, 1500,{.forwards = true}, false);
+   chassis.turnToHeading(180, 900, {.maxSpeed = 127}, false);
+   chassis.moveToPoint(38, -20, 1100,{.forwards = true}, false);
+   pros::delay(500);///match loader
+   chassis.moveToPoint(39.5, 22, 1500,{.forwards = false}, false);
+   chassis.cancelMotion();
+   pto.setDriveMode(DRIVE_4_MOTOR);
+   DrivePTO.move(127); // outakes into far long goal 3 blocks
+   pros::delay(1500);
+   DrivePTO.brake();
+   pto.setDriveMode(DRIVE_6_MOTOR);
+   Loader.retract();
+   chassis.moveToPoint(38.5, 3, 1000, {.forwards = true}, false);
+   chassis.turnToHeading(135, 1000);
+   chassis.moveToPoint(28, 18, 1000,{.forwards = false}, false);
+   chassis.turnToHeading(180, 1000);
+   chassis.moveToPoint(32, 33, 1000,{.forwards = false}, false);
+   chassis.turnToHeading(150, 1000);
+*/
+  /////////////////////left 4 wing//////////////////////
+
+  Intake2.move(127);
+  chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
+  pros::delay(650);
+  Loader.extend();
+  chassis.waitUntilDone();
+  chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
+  chassis.moveToPoint(-43, 3, 1500,{.forwards = true}, false);
+  chassis.turnToHeading(-180, 900);
+  chassis.moveToPoint(-43, 23, 1500,{.forwards = false}, false);
+  chassis.cancelMotion();
+  pto.setDriveMode(DRIVE_4_MOTOR);
+  DrivePTO.move(127); // outakes into far long goal 3 blocks
+  pros::delay(900);
+  DrivePTO.brake();
+  pto.setDriveMode(DRIVE_6_MOTOR);
+  Loader.retract();
+  chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
+  chassis.moveToPoint(-53, -3, 1500,{.forwards = true
+  }, false);
+  chassis.turnToHeading(-180, 900);
+  chassis.moveToPoint(-51.5, 38, 1000, {.forwards = false}, false);
+  chassis.turnToHeading(135, 1000);
 
   ////////////////////////left wing 7/////////////////
   // Intake2.move(127);

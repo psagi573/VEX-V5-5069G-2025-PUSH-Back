@@ -137,7 +137,7 @@ int OutakeControls() {
       } else {
         drivetrainEnabled = false;
         pto.setDriveMode(DRIVE_4_MOTOR);
-        pros::delay(50);
+        pros::delay(1);
         drivetrainEnabled = true;
       }
     }

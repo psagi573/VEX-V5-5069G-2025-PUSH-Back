@@ -21,11 +21,11 @@ PTOManager pto({&L1, &L2, &PTOL3, &LIntake}, {&R6, &R7, &PTOR8, &RIntake}, 'B',
 
 // Drivetrain / LemLib config
 lemlib::Drivetrain drivetrain(&L, &R, 12.25, lemlib::Omniwheel::NEW_325, 480,
-                              0.15853);
+                              0);
 
 // Odom wheels
-lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, 2, 1.7);
-lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, 2, 0.5);
+lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, 2, 1.8);
+lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, 2, 0.8);
 
 // Odom sensors
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr,
@@ -33,7 +33,7 @@ lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr,
                             &inertial19); // 6, 5
 
 // PID settings
-lemlib::ControllerSettings lateral_controller(8, 0, 40, 0, 0, 0, 0, 0,
+lemlib::ControllerSettings lateral_controller(10, 0, 55, 0, 1,100, 3, 500,
                                               0); // slew-80
 
 // lemlib::ControllerSettings lateral_controller(4.8, 0, 25, 0, 0, 0, 0, 0, 0);
@@ -42,7 +42,7 @@ lemlib::ControllerSettings lateral_controller(8, 0, 40, 0, 0, 0, 0, 0,
 // lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0,
 // 0,
 //                                              0);
-lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0, 0,
+lemlib::ControllerSettings angular_controller(4.15, 0, 34, 0, 2, 20, 10, 200,
                                               0);
 
 // Chassis
@@ -99,16 +99,12 @@ void competition_initialize() {
 // ----------------- AUTONOMOUS -----------------
 void autonomous() {
 
-  // drive(24, 2000);
-  // chassis.moveToPoint(0 , 24, 1000);
 
 
-  // LeftWing();
-   //RightWing();
-  // RightLOW();
+  //LeftWing();
+  //RightWing();;
   //SAWP();
-  //skills();
-  //New();
+  skills();
 
 
 
@@ -164,28 +160,28 @@ void autonomous() {
 */
   /////////////////////left 4 wing//////////////////////
 
-  Intake2.move(127);
-  chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
-  pros::delay(650);
-  Loader.extend();
-  chassis.waitUntilDone();
-  chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
-  chassis.moveToPoint(-43, 3, 1500,{.forwards = true}, false);
-  chassis.turnToHeading(-180, 900);
-  chassis.moveToPoint(-43, 23, 1500,{.forwards = false}, false);
-  chassis.cancelMotion();
-  pto.setDriveMode(DRIVE_4_MOTOR);
-  DrivePTO.move(127); // outakes into far long goal 3 blocks
-  pros::delay(900);
-  DrivePTO.brake();
-  pto.setDriveMode(DRIVE_6_MOTOR);
-  Loader.retract();
-  chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
-  chassis.moveToPoint(-53, -3, 1500,{.forwards = true
-  }, false);
-  chassis.turnToHeading(-180, 900);
-  chassis.moveToPoint(-51.5, 38, 1000, {.forwards = false}, false);
-  chassis.turnToHeading(135, 1000);
+  // Intake2.move(127);
+  // chassis.moveToPoint(-13, 27, 1000, {.forwards = true}, true);
+  // pros::delay(650);
+  // Loader.extend();
+  // chassis.waitUntilDone();
+  // chassis.turnToHeading(-150, 900, {.maxSpeed=127}, false);
+  // chassis.moveToPoint(-43, 3, 1500,{.forwards = true}, false);
+  // chassis.turnToHeading(-180, 900);
+  // chassis.moveToPoint(-43, 23, 1500,{.forwards = false}, false);
+  // chassis.cancelMotion();
+  // pto.setDriveMode(DRIVE_4_MOTOR);
+  // DrivePTO.move(127); // outakes into far long goal 3 blocks
+  // pros::delay(900);
+  // DrivePTO.brake();
+  // pto.setDriveMode(DRIVE_6_MOTOR);
+  // Loader.retract();
+  // chassis.swingToHeading(215, lemlib::DriveSide::RIGHT, 1000);
+  // chassis.moveToPoint(-53, -3, 1500,{.forwards = true
+  // }, false);
+  // chassis.turnToHeading(-180, 900);
+  // chassis.moveToPoint(-51.5, 38, 1000, {.forwards = false}, false);
+  // chassis.turnToHeading(135, 1000);
 
   ////////////////////////left wing 7/////////////////
   // Intake2.move(127);

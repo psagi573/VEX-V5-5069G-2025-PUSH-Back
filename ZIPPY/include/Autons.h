@@ -5,7 +5,4 @@ void SAWP();
 void skills();
 void LeftWing();
 void RightWing();
-void wingRIGHT();
-void RightLOW();
-void New();
 

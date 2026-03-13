@@ -24,7 +24,9 @@
  * E_CONTROLLER_MASTER is pedantically correct within the PROS styleguide, but
  * not convenient for most student programmers.
  */
-#include "pros/adi.hpp"
+//#include "pros/adi.hpp"
+#include "pros/ai_vision.h"
+#include "pros/distance.hpp"
 #define PROS_USE_SIMPLE_NAMES
 
 /**
@@ -90,8 +92,7 @@ extern pros::MotorGroup IntakePTO;
 extern pros::MotorGroup Drivetrain;
 extern pros::MotorGroup DrivetrainL;
 extern pros::MotorGroup DrivetrainR;
-extern pros::MotorGroup DrivetrainAll;
-extern pros::MotorGroup DrivetrainMain;
+extern pros::MotorGroup Drivetrainall;
 extern pros::MotorGroup Left;
 extern pros::MotorGroup Right;
 extern pros::MotorGroup Intake2;
@@ -104,12 +105,16 @@ extern pros::adi::Pneumatics IntakePTOPiston;
 extern pros::adi::Pneumatics Midgoal;
 extern pros::adi::Pneumatics Loader;
 extern pros::adi::Pneumatics Hook;
-
+extern pros::adi::Pneumatics Low;
+extern Distance distX;
+extern Distance distY;
+extern pros::AIVision ai_sensor;
 
 // declarations for classes
 extern PTOManager pto;
 // lemlib declarations for classes
 extern lemlib::Chassis chassis;
+extern lemlib::Chassis chassis2;
 extern lemlib::OdomSensors sensors;
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
@@ -141,6 +146,7 @@ extern "C"
   void disabled(void);
   void competition_initialize(void);
   void opcontrol(void);
+  void reset(float zero);
 #ifdef __cplusplus
 }
 #endif

@@ -123,8 +123,9 @@ int IntakeRevControls() {
 int OutakeControls() {
   while (true) {
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+      IntakePTO.move(127);
       if (pto.getCurrentDriveMode() == DRIVE_4_MOTOR) {
-        IntakePTO.move(127);
+        //IntakePTO.move(127);
         DrivePTO.move(127);
 
         while (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
@@ -181,7 +182,7 @@ int skillsMidControls() {
         Midgoal.extend();
 
         IntakePTO.move(85);
-        DrivePTO.move(-85);
+        DrivePTO.move(-127);
 
         while (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
           pros::delay(10);
@@ -227,6 +228,21 @@ int Hookcontrols() {
         Hook.extend();
       else
         Hook.retract();
+    }
+    pros::delay(10);
+  }
+}
+
+int Lowcontrols() {
+  while (true) {
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+      Low.extend();
+        while (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+          IntakePTO.move(-127);
+          }
+      IntakePTO.brake();
+      Low.retract();
+
     }
     pros::delay(10);
   }

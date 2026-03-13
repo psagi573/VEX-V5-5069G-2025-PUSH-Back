@@ -44,4 +44,6 @@ pros::adi::Pneumatics IntakePTOPiston('A', false);
 pros::adi::Pneumatics Midgoal('G', false);
 pros::adi::Pneumatics Loader('F', false);
 pros::adi::Pneumatics Hook('H', false);
+pros::adi::Pneumatics Low('E', false);
+
 

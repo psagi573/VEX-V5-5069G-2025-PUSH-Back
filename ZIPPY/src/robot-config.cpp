@@ -40,9 +40,9 @@ pros::Rotation Xaxis(-17);
 
 // Pneumatic definitions
 pros::adi::Pneumatics DrivePTOPiston('B', false);
-pros::adi::Pneumatics IntakePTOPiston('A', false);
-pros::adi::Pneumatics Midgoal('G', false);
-pros::adi::Pneumatics Loader('F', false);
+pros::adi::Pneumatics IntakePTOPiston('F', false);
+pros::adi::Pneumatics Midgoal('A', false);
+pros::adi::Pneumatics Loader('G', false);
 pros::adi::Pneumatics Hook('H', false);
 pros::adi::Pneumatics Low('E', false);
 

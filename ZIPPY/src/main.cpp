@@ -1,5 +1,6 @@
 #include "main.h"
 #include "Autons.h"
+#include "liblvgl/llemu.hpp"
 #include "pros/distance.hpp"
 #include "pros/motors.h"
 
@@ -13,7 +14,7 @@ PTOManager pto(
     {&L1, &L2, &PTOL3, &LIntake},
     {&R6, &R7, &PTOR8, &RIntake},
     'B',
-    'A'
+    'F'
     
 );
 
@@ -63,6 +64,7 @@ lemlib::Chassis chassis2(drivetrain2, lateral_controller, angular_controller, se
 // ----------------- ODOM DEBUG TASK -----------------
 void odomDebug(void*) {
     master.clear();
+    //pros::lcd::clear();
     while(true) {
         lemlib::Pose pose = chassis.getPose();
         pros::lcd::print(1, "X: %.2f", pose.x);
@@ -70,10 +72,15 @@ void odomDebug(void*) {
         pros::lcd::print(3, "H: %.2f", pose.theta);
         pros::lcd::print(4, "X true: %.2f", Xaxis.get_position());
         pros::lcd::print(5, "Y true: %.2f", Yaxis.get_position());
+        pros::lcd::print(6, "Intake: %.2f", Intake2.get_temperature_all());
+        pros::lcd::print(7, "Outake: %.2f", DrivePTO.get_temperature_all());
+        pros::lcd::print(8, "Drivetrain: %.2f", Drivetrain.get_temperature_all());
 
         master.print(0, 0, "X:%5.1f Y:%5.1f", pose.x, pose.y);
         master.print(1, 0, "H:%5.1f", pose.theta);
         master.print(2, 0, "X true:%5.1f Y true:%5.1f", Xaxis.get_position(), Yaxis.get_position());
+        master.print(3, 0, "Intake:%5.1f Outake:%5.1f", Intake2.get_temperature_all(), DrivePTO.get_temperature_all());
+        master.print(4, 0, "Drivetrain:%5.1f", Drivetrain.get_temperature_all());
         pros::delay(50);
     }
 }
@@ -108,7 +115,8 @@ void competition_initialize() {}
 void autonomous() {
  //RightWing();
  //LeftWing();
- splitRight();
+ //splitRight();
+ splitLeft();
  //skills();
  //SAWP();
 
@@ -117,8 +125,7 @@ void autonomous() {
 
 // ----------------- OPERATOR CONTROL -----------------
 void opcontrol() {
-  DrivetrainL.set_brake_mode_all(pros::E_MOTOR_BRAKE_COAST);
-  DrivetrainR.set_brake_mode_all(pros::E_MOTOR_BRAKE_COAST);
+  //new pros::Task(odomDebug);
   new pros::Task(DriveTrainControls);
   new pros::Task(OutakeControls);
   new pros::Task(IntakeRevControls);

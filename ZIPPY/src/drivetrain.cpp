@@ -67,18 +67,16 @@ int DrivePTOcontrols() {
       } else {
         DrivePTO1 = true;
       }
-      while (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) {
-
-        pros::delay(10);
-      }
 
       if (DrivePTO1) {
         pto.setDriveMode(DRIVE_8_MOTOR);
       } else {
+        pto.setDriveMode(DRIVE_6_MOTOR);
+      }
     }
     }
   }
-}
+
 
 int IntakeControls() {
   while (true) {

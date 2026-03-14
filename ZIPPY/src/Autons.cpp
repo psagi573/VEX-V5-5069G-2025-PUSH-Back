@@ -8,33 +8,52 @@
 #include <cmath>
 
 void splitLeft(){
+chassis.setPose(0,-6.5,0);
   Intake2.move(127);
-  chassis.moveToPoint(-13, 24, 1500, {.forwards = true}, true);
-  pros::delay(400);
+  chassis.moveToPose(0, -33.5, 90,1100, {.forwards = false, .horizontalDrift = 8, .lead = 0}, true);
+  pros::delay(300);
   Loader.extend();
   chassis.waitUntilDone();
-  chassis.turnToHeading(225, 1000);
-  Midgoal.retract();
-  chassis.moveToPoint(-0.5, 37, 1000, {.forwards = false}, false);
+  double yhere = chassis.getPose().y;
+  chassis2.moveToPoint(12, yhere, 750, {.forwards = true}, true);
   pto.setDriveMode(DRIVE_4_MOTOR);
-   DrivePTO.move(-85); // outakes into far long goal 3 blocks
+  chassis.waitUntilDone();
+  chassis2.moveToPoint(-27.5, yhere+1.5, 1000, {.forwards = false}, false);
+  DrivePTO.move(127); // outakes into far long goal 3 blocks
+  Drivetrain.move(-127);
+  Loader.retract();
+  pros::delay(1000);
+  Drivetrain.brake();
+  DrivePTO.brake();
+  Intake2.brake();
+  pto.setDriveMode(DRIVE_6_MOTOR);
+  chassis.moveToPose(-4, -33, 315,1500, {.forwards = true,.horizontalDrift = 8, .lead = 0, .minSpeed = 100, .earlyExitRange = 18}, false);
+  chassis.moveToPose(-31, -8, 315-180, 1300, {.forwards = true,.horizontalDrift = 8, .lead = 0, .minSpeed = 90, .earlyExitRange = 9}, true);
+  pros::delay(700);
+  Loader.extend();
+  chassis.waitUntilDone();
+  chassis.moveToPoint(-33, 3, 1000, {.forwards = false}, false);
+  chassis.cancelMotion();
+  pto.setDriveMode(DRIVE_4_MOTOR);
+  Midgoal.extend();
+  DrivePTO.move(-127);
   IntakePTO.move(85);
   pros::delay(800);
-  IntakePTO.brake();
-  Midgoal.retract();
+  Loader.retract();
   DrivePTO.brake();
+  IntakePTO.move(127);
   pto.setDriveMode(DRIVE_6_MOTOR);
-  chassis.moveToPoint(-37, 0, 1500, {.forwards = true, .minSpeed = 110, .earlyExitRange = 9.5}, false);
-  chassis.turnToHeading(270, 1000, {.minSpeed = 110, .earlyExitRange = 15}, false);
-  chassis.moveToPoint(-37, -20, 1500, {.forwards = false}, false);
-  chassis.moveToPoint(-37, 23, 1500, {.forwards = false}, false);
+  chassis.moveToPoint(0, yhere-6, 1500, {.forwards = true}, false);
+  chassis.turnToHeading(90, 900);
+  chassis.moveToPoint(-35, yhere-4,1500, {.forwards = false, .minSpeed = 100, .earlyExitRange = 5}, false);
+  chassis.turnToHeading(60, 1000);
 }
 
 
 void splitRight(){
   chassis.setPose(0,-6.5,0);
   Intake2.move(127);
-  chassis.moveToPose(0, -33.5, 270,1100, {.forwards = false, .horizontalDrift = 8, .lead = 0}, true);
+  chassis.moveToPose(0, -33.1, 270,1100, {.forwards = false, .horizontalDrift = 8, .lead = 0}, true);
   pros::delay(300);
   Loader.extend();
   chassis.waitUntilDone();
@@ -42,7 +61,7 @@ void splitRight(){
   chassis.moveToPoint(-12, -33, 750, {.forwards = true}, true);
   pto.setDriveMode(DRIVE_4_MOTOR);
   chassis.waitUntilDone();
-  chassis2.moveToPoint(27.5, -33, 1000, {.forwards = false}, false);
+  chassis2.moveToPoint(27.5, -33.1, 1000, {.forwards = false}, false);
   DrivePTO.move(127); // outakes into far long goal 3 blocks
   Drivetrain.move(-127);
   Loader.retract();
@@ -53,8 +72,7 @@ void splitRight(){
   chassis.swingToHeading(
       30, lemlib::DriveSide::RIGHT, 1500,
       {.maxSpeed = 127, .minSpeed = 90, .earlyExitRange = 10.5});
-  chassis.moveToPoint(36, -15, 1500,{.forwards = true, .minSpeed = 90, .earlyExitRange = 10},false); // 3 bloacks
-  chassis.moveToPoint(46, 4, 1000, {.forwards = true, .minSpeed = 90, .earlyExitRange = 10}, true);
+  chassis.moveToPoint(40, 0, 1500,{.forwards = true, .minSpeed = 90, .earlyExitRange = 8.5},false); // 3 bloacks
   pros::delay(350);
   Low.retract();
   chassis.waitUntilDone();
@@ -65,27 +83,27 @@ void splitRight(){
 void LeftWing() {
 chassis.setPose(0,-6.5,0);
   Intake2.move(127);
-  chassis.moveToPose(0, -33, 90,1100, {.forwards = false, .horizontalDrift = 8, .lead = 0}, true);
+  chassis.moveToPose(0, -33.5, 90,1100, {.forwards = false, .horizontalDrift = 8, .lead = 0}, true);
   pros::delay(300);
   Loader.extend();
   chassis.waitUntilDone();
   double yhere = chassis.getPose().y;
-  chassis.moveToPoint(12, yhere, 750, {.forwards = true}, true);
+  chassis2.moveToPoint(12, yhere, 750, {.forwards = true}, true);
   pto.setDriveMode(DRIVE_4_MOTOR);
   chassis.waitUntilDone();
-  chassis2.moveToPoint(-27.5, yhere, 1000, {.forwards = false}, false);
+  chassis2.moveToPoint(-27.5, yhere+1.5, 1000, {.forwards = false}, false);
   DrivePTO.move(127); // outakes into far long goal 3 blocks
   Drivetrain.move(-127);
   Loader.retract();
-  pros::delay(800);
+  pros::delay(850);
   Drivetrain.brake();
   DrivePTO.brake();
   Intake2.brake();
   pto.setDriveMode(DRIVE_6_MOTOR);
-  chassis.moveToPoint(-16, -36, 1500, {.forwards = true, .minSpeed = 100, .earlyExitRange = 4}, false);
-  chassis.turnToHeading(-275, 900);
-  chassis.moveToPoint(-42, -35.5,1500, {.forwards = false, .minSpeed = 100, .earlyExitRange = 5}, false);
-  chassis.turnToHeading(45, 1000);
+  chassis.moveToPoint(-16, yhere-6, 1500, {.forwards = true}, false);
+  chassis.turnToHeading(90, 900);
+  chassis.moveToPoint(-35, yhere-4,1500, {.forwards = false, .minSpeed = 100, .earlyExitRange = 5}, false);
+  chassis.turnToHeading(60, 1000);
 }
 
 void RightWing() {

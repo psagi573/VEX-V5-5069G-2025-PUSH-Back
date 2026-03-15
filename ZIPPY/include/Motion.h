@@ -1,9 +1,5 @@
 #pragma once
 
 // existing functions
-void drive(double distInches, double timeout);
-void driveheading(double distInches, double timeout, double targetHeading);
-void drivehold(double distInches, double timeout);
-void turn(double targetHeading);
-void arc(double radiusInches, double angleDeg);
-void Sweep(double targetAngleDeg, bool left);
+void driveM6(float targetvalue, float timeout, float kP = 15, float kD = 0.5);
+void driveM8(float targetvalue, float timeout, float kP = 8, float kD = 0);

@@ -92,6 +92,7 @@ extern pros::MotorGroup IntakePTO;
 extern pros::MotorGroup Drivetrain;
 extern pros::MotorGroup DrivetrainL;
 extern pros::MotorGroup DrivetrainR;
+extern pros::MotorGroup DrivetrainMain;
 extern pros::MotorGroup Drivetrainall;
 extern pros::MotorGroup Left;
 extern pros::MotorGroup Right;
@@ -115,6 +116,7 @@ extern PTOManager pto;
 // lemlib declarations for classes
 extern lemlib::Chassis chassis;
 extern lemlib::Chassis chassis2;
+extern lemlib::Chassis chassis3;
 extern lemlib::OdomSensors sensors;
 extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;

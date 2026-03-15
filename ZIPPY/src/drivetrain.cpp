@@ -245,3 +245,27 @@ int Lowcontrols() {
     pros::delay(10);
   }
 }
+
+
+int debug() {
+    master.clear();
+    //pros::lcd::clear();
+    while(true) {
+        lemlib::Pose pose = chassis.getPose();
+        pros::lcd::print(1, "X: %.2f", pose.x);
+        pros::lcd::print(2, "Y: %.2f", pose.y);
+        pros::lcd::print(3, "H: %.2f", pose.theta);
+        pros::lcd::print(4, "X true: %.2f", Xaxis.get_position());
+        pros::lcd::print(5, "Y true: %.2f", Yaxis.get_position());
+        pros::lcd::print(6, "Intake: %.2f", Intake2.get_temperature_all());
+        pros::lcd::print(7, "Outake: %.2f", DrivePTO.get_temperature_all());
+        pros::lcd::print(8, "Drivetrain: %.2f", Drivetrain.get_temperature_all());
+
+        master.print(0, 0, "X:%5.1f Y:%5.1f", pose.x, pose.y);
+        master.print(1, 0, "H:%5.1f", pose.theta);
+        master.print(2, 0, "X true:%5.1f Y true:%5.1f", Xaxis.get_position(), Yaxis.get_position());
+        master.print(3, 0, "Intake:%5.1f Outake:%5.1f", Intake2.get_temperature_all(), DrivePTO.get_temperature_all());
+        master.print(4, 0, "Drivetrain:%5.1f", Drivetrain.get_temperature_all());
+        pros::delay(50);
+    }
+}

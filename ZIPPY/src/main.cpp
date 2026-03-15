@@ -1,6 +1,6 @@
 #include "main.h"
 #include "Autons.h"
-#include "liblvgl/llemu.hpp"
+#include "Motion.h"
 #include "pros/distance.hpp"
 #include "pros/motors.h"
 
@@ -41,6 +41,7 @@ void initialize_drivetrain_selection(bool Drivetrain_Motors) {
 // Drivetrain / LemLib config
 lemlib::Drivetrain drivetrain(&L, &R, 12.25, lemlib::Omniwheel::NEW_325, 480, 0);
 lemlib::Drivetrain drivetrain2(&Left, &Right, 12.25, lemlib::Omniwheel::NEW_325, 480, 0);
+lemlib::Drivetrain drivetrain3(&DrivetrainL, &DrivetrainR, 12.25, lemlib::Omniwheel::NEW_325, 480, 0);
 // Odom wheels
 lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, 2, 1.8);
 lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, 2, 0.8);
@@ -59,31 +60,8 @@ lemlib::ControllerSettings angular_controller(4.15, 0, 34, 0, 2, 20, 10, 200,
 // Chassis
 lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sensors);
 lemlib::Chassis chassis2(drivetrain2, lateral_controller, angular_controller, sensors);
+lemlib::Chassis chassis3(drivetrain3, lateral_controller, angular_controller, sensors);
 
-
-// ----------------- ODOM DEBUG TASK -----------------
-void odomDebug(void*) {
-    master.clear();
-    //pros::lcd::clear();
-    while(true) {
-        lemlib::Pose pose = chassis.getPose();
-        pros::lcd::print(1, "X: %.2f", pose.x);
-        pros::lcd::print(2, "Y: %.2f", pose.y);
-        pros::lcd::print(3, "H: %.2f", pose.theta);
-        pros::lcd::print(4, "X true: %.2f", Xaxis.get_position());
-        pros::lcd::print(5, "Y true: %.2f", Yaxis.get_position());
-        pros::lcd::print(6, "Intake: %.2f", Intake2.get_temperature_all());
-        pros::lcd::print(7, "Outake: %.2f", DrivePTO.get_temperature_all());
-        pros::lcd::print(8, "Drivetrain: %.2f", Drivetrain.get_temperature_all());
-
-        master.print(0, 0, "X:%5.1f Y:%5.1f", pose.x, pose.y);
-        master.print(1, 0, "H:%5.1f", pose.theta);
-        master.print(2, 0, "X true:%5.1f Y true:%5.1f", Xaxis.get_position(), Yaxis.get_position());
-        master.print(3, 0, "Intake:%5.1f Outake:%5.1f", Intake2.get_temperature_all(), DrivePTO.get_temperature_all());
-        master.print(4, 0, "Drivetrain:%5.1f", Drivetrain.get_temperature_all());
-        pros::delay(50);
-    }
-}
 
 // ----------------- INITIALIZE -----------------
 void initialize() {
@@ -99,9 +77,6 @@ void initialize() {
     DrivetrainR.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     chassis.setPose(0,0,0);
 
-    // Start Odom debug task
-    odomTask = new pros::Task(odomDebug);
-
 
 }
 
@@ -113,19 +88,21 @@ void competition_initialize() {}
 
 // ----------------- AUTONOMOUS -----------------
 void autonomous() {
+ new pros::Task(debug);
+ //driveM6(24, 2000); // drive forward 36 inches with a timeout of 3 seconds, kP of 7 and kD of 3
  //RightWing();
  //LeftWing();
  //splitRight();
- splitLeft();
+ //splitLeft();
  //skills();
- //SAWP();
+ SAWP();
 
 
 }
 
 // ----------------- OPERATOR CONTROL -----------------
 void opcontrol() {
-  //new pros::Task(odomDebug);
+  new pros::Task(debug);
   new pros::Task(DriveTrainControls);
   new pros::Task(OutakeControls);
   new pros::Task(IntakeRevControls);
@@ -136,7 +113,6 @@ void opcontrol() {
   new pros::Task(Hookcontrols);
   new pros::Task(skillsMidControls);
   new pros::Task(Lowcontrols);
-  //static pros::Task ptoDisplayTask(PTOStatusDisplay);
 
   while (true) {
 

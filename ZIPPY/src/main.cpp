@@ -57,6 +57,13 @@ lemlib::ControllerSettings lateral_controller(10, 0, 55, 0, 1,100, 3, 500,
 lemlib::ControllerSettings angular_controller(4.15, 0, 34, 0, 2, 20, 10, 200,
                                               0);
 
+// lemlib::ControllerSettings lateral_controller(8, 0, 40, 0, 0, 0, 0, 0,
+//                                               0);
+
+// lemlib::ControllerSettings angular_controller(2.15, 0.0001, 15, 15, 0, 0, 0, 0,
+//                                               0);
+
+
 // Chassis
 lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sensors);
 lemlib::Chassis chassis2(drivetrain2, lateral_controller, angular_controller, sensors);
@@ -90,12 +97,13 @@ void competition_initialize() {}
 void autonomous() {
  new pros::Task(debug);
  //driveM6(24, 2000); // drive forward 36 inches with a timeout of 3 seconds, kP of 7 and kD of 3
- //RightWing();
+ RightWing();
  //LeftWing();
  //splitRight();
  //splitLeft();
  //skills();
- SAWP();
+ //test();
+ //SAWP();
 
 
 }
@@ -106,7 +114,7 @@ void opcontrol() {
   new pros::Task(DriveTrainControls);
   new pros::Task(OutakeControls);
   new pros::Task(IntakeRevControls);
-  new pros::Task(MidControls);
+  //new pros::Task(MidControls);
   new pros::Task(IntakeControls);
   new pros::Task(DrivePTOcontrols);
   new pros::Task(Loadercontrols);

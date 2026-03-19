@@ -8,7 +8,7 @@ int DriveTrainControls();
 int IntakeControls();
 int OutakeControls();
 int IntakeRevControls();
-int MidControls();
+//int MidControls();
 int DrivePTOcontrols();
 int Loadercontrols();
 int Hookcontrols();

@@ -74,7 +74,8 @@ void initialize() {
     // Build the debug screen and start update task.
     // This also loads the debug screen immediately so you see live data
     // while connecting to the field / powering on.
-    GUI_initDebugTask();
+    GUI_runAutonSelector();
+    //GUI_initDebugTask();
 }
 
 

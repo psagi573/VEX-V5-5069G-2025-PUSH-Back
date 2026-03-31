@@ -167,7 +167,7 @@ void RightWing() {
   chassis.moveToPoint(-12, -33, 750, {.forwards = true}, true); // into loader
   pto.setDriveMode(DRIVE_4_MOTOR);
   chassis.waitUntilDone();
-  pros:delay(100);
+  pros::delay(100);
   double yhere = chassis.getPose().y;
   chassis2.moveToPoint(27.5, -33.5, 1000, {.forwards = false}, false);
   DrivePTO.move(127); // outakes into far long goal 3 blocks

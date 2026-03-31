@@ -14,5 +14,4 @@ int Loadercontrols();
 int Hookcontrols();
 int skillsMidControls();
 int Lowcontrols();
-int debug();
 

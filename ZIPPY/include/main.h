@@ -25,7 +25,6 @@
  * not convenient for most student programmers.
  */
 //#include "pros/adi.hpp"
-#include "pros/ai_vision.h"
 #include "pros/distance.hpp"
 #define PROS_USE_SIMPLE_NAMES
 

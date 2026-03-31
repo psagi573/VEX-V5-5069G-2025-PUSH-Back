@@ -35,7 +35,7 @@ pros::MotorGroup Drivetrainall({-12, -11, 13, 15, 16, 19, -18, -20}, pros::Motor
 pros::MotorGroup DrivetrainMain({-12, -11, 13, 16, 19, -18}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake
 // Sensor definitions
 pros::Imu inertial19(6);
-pros::Rotation Yaxis(-14);
+pros::Rotation Yaxis(14);
 pros::Rotation Xaxis(-17);
 
 // Pneumatic definitions

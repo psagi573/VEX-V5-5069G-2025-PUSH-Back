@@ -7,6 +7,13 @@
 #include <algorithm>
 #include <cmath>
 
+
+void test() {
+  L1.move(127);
+  pros::delay(3000);
+  L1.brake();
+  L1.move(-17);
+}
 void splitLeft() {
   chassis.setPose(0, -6.5, 0);
   Intake2.move(127);

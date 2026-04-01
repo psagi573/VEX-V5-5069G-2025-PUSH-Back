@@ -36,3 +36,5 @@ void GUI_runAutonSelector();
 
 // Lightweight debug screen refresh (runs as a task)
 void GUI_debugTask(void*);
+
+void GUI_showDebugScreen();

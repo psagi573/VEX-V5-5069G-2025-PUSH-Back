@@ -15,24 +15,24 @@ pros::Motor PTOL3(-13, pros::MotorGears::blue);
 pros::Motor LIntake(-15, pros::MotorGears::blue);
 //right side motors
 pros::Motor R6(16, pros::MotorGears::blue);
-pros::Motor R7(19, pros::MotorGears::blue);
-pros::Motor PTOR8(18, pros::MotorGears::blue);
+pros::Motor R7(18, pros::MotorGears::blue);
+pros::Motor PTOR8(19, pros::MotorGears::blue);
 pros::Motor RIntake(20, pros::MotorGears::blue);
 
 
 pros::MotorGroup L({-12, -11, 13}, pros::MotorGears::blue); //L1, L2, PTOL3
-pros::MotorGroup R({16, 19, -18}, pros::MotorGears::blue); //R6, R7, PTOR8
-pros::MotorGroup DrivePTO({-13, 18}, pros::MotorGears::blue); //PTOL3, PTOR8
+pros::MotorGroup R({16, 18, -19}, pros::MotorGears::blue); //R6, R7, PTOR8
+pros::MotorGroup DrivePTO({-13, 19}, pros::MotorGears::blue); //PTOL3, PTOR8
 pros::MotorGroup IntakePTO({-15, 20}, pros::MotorGears::blue); //LIntake, RIntake
-pros::MotorGroup Drivetrain({-12, -11, 16, 19}, pros::MotorGears::blue); //L1, L2, R6, R7
+pros::MotorGroup Drivetrain({-12, -11, 16, 18}, pros::MotorGears::blue); //L1, L2, R6, R7
 pros::MotorGroup DrivetrainL({-12, -11, 13, 15}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake
-pros::MotorGroup DrivetrainR({16, 19, -18, -20}, pros::MotorGears::blue); //R6, R7, PTOR8, RIntake
+pros::MotorGroup DrivetrainR({16, 18, -19, -20}, pros::MotorGears::blue); //R6, R7, PTOR8, RIntake
 pros::MotorGroup Left({-12, -11}, pros::MotorGears::blue); //L1, L2
-pros::MotorGroup Right({19, 16}, pros::MotorGears::blue); //R6, R7
+pros::MotorGroup Right({18, 16}, pros::MotorGears::blue); //R6, R7
 pros::MotorGroup Intake2({-15, 20}, pros::MotorGears::blue); //LIntake, RIntake
-pros::MotorGroup Intake4({-15, 20, 18, -13}, pros::MotorGears::blue); //LIntake, RIntake, PTOR8, PTOL3
-pros::MotorGroup Drivetrainall({-12, -11, 13, 15, 16, 19, -18, -20}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake, R6, R7, PTOR8, RIntake
-pros::MotorGroup DrivetrainMain({-12, -11, 13, 16, 19, -18}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake
+pros::MotorGroup Intake4({-15, 20, 19, -13}, pros::MotorGears::blue); //LIntake, RIntake, PTOR8, PTOL3
+pros::MotorGroup Drivetrainall({-12, -11, 13, 15, 16, 18, -19, -20}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake, R6, R7, PTOR8, RIntake
+pros::MotorGroup DrivetrainMain({-12, -11, 13, 16, 18, -19}, pros::MotorGears::blue); //L1, L2, PTOL3, LIntake
 // Sensor definitions
 pros::Imu inertial19(6);
 pros::Rotation Yaxis(14);

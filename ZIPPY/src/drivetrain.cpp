@@ -172,15 +172,19 @@ int Hookcontrols() {
 
 // --------- LOW ---------
 int Lowcontrols() {
-  while (true) {
+    while (true) {
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
       Low.extend();
+      if (pto.getCurrentDriveMode() != DRIVE_6_MOTOR) {
+        pto.setDriveMode(DRIVE_6_MOTOR);
+      }
+      IntakePTO.move(-127);
       while (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-        IntakePTO.move(-127);
         pros::delay(10);
       }
       IntakePTO.brake();
       Low.retract();
+      pto.setDriveMode(DRIVE_6_MOTOR);
     }
     pros::delay(10);
   }

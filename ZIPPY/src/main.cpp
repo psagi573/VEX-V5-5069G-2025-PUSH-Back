@@ -65,8 +65,8 @@ void initialize() {
     DrivetrainL.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     DrivetrainR.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     chassis.setPose(0, 0, 0);
-    // GUI_initDebugTask();
-    // GUI_runAutonSelector();   // builds selector screen and returns immediately
+    GUI_initDebugTask();
+    GUI_runAutonSelector();   // builds selector screen and returns immediately
 }
  
  
@@ -75,7 +75,7 @@ void initialize() {
 //  before autonomous. PROS kills this when match starts.
 // ============================================================
 void competition_initialize() {
-    //GUI_runAutonSelector();
+    GUI_runAutonSelector();
 }
  
  
@@ -91,18 +91,18 @@ void disabled() {}
 void autonomous() {
     //splitLeft();
     //LeftWing();
-    RightWing();
-    // GUI_showDebugScreen();  // flip to debug screen when auton starts
-    // switch ((AutonomousID)selectedAuton) {
-    //     case AUTON_SPLIT_LEFT:   splitLeft();   break;
-    //     case AUTON_SPLIT_RIGHT:  splitRight();  break;
-    //     case AUTON_LEFT_WING:    LeftWing();    break;
-    //     case AUTON_RIGHT_WING:   RightWing();   break;
-    //     case AUTON_SAWP:         SAWP();        break;
-    //     case AUTON_SKILLS:       skills();      break;
-    //     case AUTON_NONE:
-    //     default:                               break;
-    // }
+    //RightWing();
+    GUI_showDebugScreen();  // flip to debug screen when auton starts
+    switch ((AutonomousID)selectedAuton) {
+        case AUTON_SPLIT_LEFT:   splitLeft();   break;
+        case AUTON_SPLIT_RIGHT:  splitRight();  break;
+        case AUTON_LEFT_WING:    LeftWing();    break;
+        case AUTON_RIGHT_WING:   RightWing();   break;
+        case AUTON_SAWP:         SAWP();        break;
+        case AUTON_SKILLS:       skills();      break;
+        case AUTON_NONE:
+        default:                               break;
+    }
 }
  
  
@@ -110,7 +110,7 @@ void autonomous() {
 //  OPCONTROL
 // ============================================================
 void opcontrol() {
-    //GUI_showDebugScreen();
+    GUI_showDebugScreen();
     new pros::Task(DriveTrainControls);
     new pros::Task(OutakeControls);
     new pros::Task(IntakeRevControls);

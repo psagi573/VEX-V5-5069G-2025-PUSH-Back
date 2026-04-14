@@ -52,8 +52,13 @@ static const int AUTON_COUNT = sizeof(autonList) / sizeof(autonList[0]);
 // ------------------ GLOBALS ------------------
 volatile int selectedAuton = AUTON_RIGHT_WING;
 
-static pros::Task* debugTask  = nullptr;
+static pros::Task* debugTask   = nullptr;
 static int         currentPage = 0;
+
+// FIX: cached debug screen — built once so label pointers never go stale
+static lv_obj_t*   s_debugScreen     = nullptr;
+// FIX: guard flag — prevents rebuilding the selector mid-touch at competition
+static bool        s_selectorShowing = false;
 
 static lv_obj_t* rp_name = nullptr;
 static lv_obj_t* rp_desc = nullptr;
@@ -144,7 +149,13 @@ static void down_cb(lv_event_t*) {
     }
 }
 
+// FIX: guard against double-tap spawning two simultaneous autonomous tasks.
+// 'running' stays true for the full session — intentional, prevents accidental
+// re-runs during a match. Power-cycle to re-arm for the next run.
 static void test_btn_cb(lv_event_t*) {
+    static bool running = false;
+    if (running) return;
+    running = true;
     new pros::Task([](void*) {
         autonomous();
     }, nullptr, TASK_PRIORITY_DEFAULT + 1, 0x8000, "test_auton");
@@ -347,8 +358,8 @@ void GUI_debugTask(void*) {
     while (true) {
         auto pose = chassis.getPose();
 
-        snprintf(buf, sizeof(buf), "X: %.1f", pose.x);   lv_label_set_text(lbl_x, buf);
-        snprintf(buf, sizeof(buf), "Y: %.1f", pose.y);   lv_label_set_text(lbl_y, buf);
+        snprintf(buf, sizeof(buf), "X: %.1f", pose.x);     lv_label_set_text(lbl_x, buf);
+        snprintf(buf, sizeof(buf), "Y: %.1f", pose.y);     lv_label_set_text(lbl_y, buf);
         snprintf(buf, sizeof(buf), "H: %.1f", pose.theta); lv_label_set_text(lbl_h, buf);
 
         for (int i = 0; i < AUTON_COUNT; i++) {
@@ -376,23 +387,39 @@ void GUI_debugTask(void*) {
 }
 
 // ==================== PUBLIC API ====================
+
+// FIX: Build the debug screen exactly once and cache it in s_debugScreen.
+// Every subsequent call just reloads the same screen object, so lbl_x/y/h/etc.
+// always point to live widgets — the debug task never chases stale pointers.
 void GUI_initDebugTask() {
-    lv_obj_t* scr = build_debug();
-    lv_screen_load(scr);
+    if (!s_debugScreen) {
+        s_debugScreen = build_debug();
+    }
+    lv_screen_load(s_debugScreen);
+    s_selectorShowing = false;
+
     if (!debugTask)
         debugTask = new pros::Task(GUI_debugTask);
 }
 
+// FIX: Return immediately if the selector is already on screen.
+// competition_initialize() fires while the driver may be mid-touch on the
+// selector; tearing down LVGL objects during a touch event can hard-fault
+// the V5 brain. The guard also preserves any selection the driver already made.
 void GUI_runAutonSelector() {
+    if (s_selectorShowing) return;
+
     currentPage = 0;
     rp_name = rp_desc = rp_id = nullptr;
     leftColumn = nullptr;
 
     lv_obj_t* scr = build_selector();
     lv_screen_load(scr);
-    // Returns immediately — LVGL handles touch on its own task
+    s_selectorShowing = true;
 }
 
+// FIX: Just delegate to GUI_initDebugTask which loads the cached screen.
+// No rebuild, no new label pointers, no risk of the task updating dead objects.
 void GUI_showDebugScreen() {
-    GUI_initDebugTask();  // safe to call multiple times — checks if task already running
+    GUI_initDebugTask();
 }

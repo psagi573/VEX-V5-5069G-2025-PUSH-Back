@@ -70,7 +70,7 @@ void initialize() {
     // immediately after and then switching back caused lbl_* to be built before
     // the selector was even visible, and the debug task was updating labels on
     // the wrong screen. The selector is now the only thing shown on power-on.
-    GUI_runAutonSelector();   // builds selector screen and returns immediately
+   // GUI_runAutonSelector();   // builds selector screen and returns immediately
 }
 
 
@@ -97,16 +97,17 @@ void disabled() {}
 // ============================================================
 void autonomous() {
     GUI_showDebugScreen();  // flip to cached debug screen when auton starts
-    switch ((AutonomousID)selectedAuton) {
-        case AUTON_SPLIT_LEFT:   splitLeft();   break;
-        case AUTON_SPLIT_RIGHT:  splitRight();  break;
-        case AUTON_LEFT_WING:    LeftWing();    break;
-        case AUTON_RIGHT_WING:   RightWing();   break;
-        case AUTON_SAWP:         SAWP();        break;
-        case AUTON_SKILLS:       skills();      break;
-        case AUTON_NONE:
-        default:                               break;
-    }
+    // switch ((AutonomousID)selectedAuton) {
+    //     case AUTON_SPLIT_LEFT:   splitLeft();   break;
+    //     case AUTON_SPLIT_RIGHT:  splitRight();  break;
+    //     case AUTON_LEFT_WING:    LeftWing();    break;
+    //     case AUTON_RIGHT_WING:   RightWing();   break;
+    //     case AUTON_SAWP:         SAWP();        break;
+    //     case AUTON_SKILLS:       skills();      break;
+    //     case AUTON_NONE:
+    //     default:                               break;
+    // }
+    SAWP();
 }
 
 

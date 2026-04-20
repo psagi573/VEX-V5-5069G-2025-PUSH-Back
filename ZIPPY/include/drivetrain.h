@@ -14,4 +14,6 @@ int Loadercontrols();
 int Hookcontrols();
 int skillsMidControls();
 int Lowcontrols();
+void macroWINGleft();
+void macroMIDGOAL();
 

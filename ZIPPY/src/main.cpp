@@ -108,6 +108,7 @@ void autonomous() {
     //     default:                               break;
     // }
     SAWP();
+    //left7();
 }
 
 
@@ -125,6 +126,8 @@ void opcontrol() {
     new pros::Task(Hookcontrols);
     new pros::Task(skillsMidControls);
     new pros::Task(Lowcontrols);
+    new pros::Task(macroWINGleft);
+    new pros::Task(macroMIDGOAL);
 
     while (true) {
         pros::delay(20);

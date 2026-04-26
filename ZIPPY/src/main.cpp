@@ -43,20 +43,29 @@ lemlib::Drivetrain drivetrain(&L, &R, 12.25, lemlib::Omniwheel::NEW_325, 480, 0)
 lemlib::Drivetrain drivetrain2(&Left, &Right, 12.25, lemlib::Omniwheel::NEW_325, 480, 0);
 lemlib::Drivetrain drivetrain3(&DrivetrainL, &DrivetrainR, 12.25, lemlib::Omniwheel::NEW_325, 480, 0);
 
-lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, 2, 1.8);
+lemlib::TrackingWheel horizontal_tracking_wheel(&Xaxis, 2, -1.2);
 lemlib::TrackingWheel vertical_tracking_wheel(&Yaxis, 2, 0.8);
 
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, nullptr,
                              &horizontal_tracking_wheel, nullptr, &inertial19);
 
-lemlib::ControllerSettings lateral_controller(10, 0, 55, 0, 1, 100, 3, 500, 0);
+lemlib::ControllerSettings lateral_controller(4, 0, 8, 0, 1, 100, 3, 500, 0);// kp 10, kd 55 kp3.8, kd 8
 lemlib::ControllerSettings angular_controller(4.15, 0, 34, 0, 2, 20, 10, 200, 0);
 
 lemlib::Chassis chassis(drivetrain, lateral_controller, angular_controller, sensors);
 lemlib::Chassis chassis2(drivetrain2, lateral_controller, angular_controller, sensors);
 lemlib::Chassis chassis3(drivetrain3, lateral_controller, angular_controller, sensors);
 
-
+void odomDebug(void *) {
+  master.clear();
+  while (true) {
+    lemlib::Pose pose = chassis.getPose();
+    master.print(0, 0, "X:%5.1f Y:%5.1f", pose.x, pose.y);
+    master.print(1, 0, "H:%5.1f", pose.theta);
+    master.print(2, 0, "X true:%5.1f Y true:%5.1f", Xaxis.get_position(),Yaxis.get_position());
+    pros::delay(50);
+  }
+}
 // ============================================================
 //  INITIALIZE — runs once on power-on, must not block
 // ============================================================
@@ -71,6 +80,7 @@ void initialize() {
     // the selector was even visible, and the debug task was updating labels on
     // the wrong screen. The selector is now the only thing shown on power-on.
    // GUI_runAutonSelector();   // builds selector screen and returns immediately
+    odomTask = new pros::Task(odomDebug);
 }
 
 
@@ -82,7 +92,7 @@ void competition_initialize() {
     // FIX: GUI_runAutonSelector() now guards itself — if the selector is
     // already on screen (which it is after initialize()), this is a no-op.
     // No mid-touch teardown, no lost selection.
-    GUI_runAutonSelector();
+    //GUI_runAutonSelector();
 }
 
 
@@ -97,6 +107,7 @@ void disabled() {}
 // ============================================================
 void autonomous() {
     GUI_showDebugScreen();  // flip to cached debug screen when auton starts
+
     // switch ((AutonomousID)selectedAuton) {
     //     case AUTON_SPLIT_LEFT:   splitLeft();   break;
     //     case AUTON_SPLIT_RIGHT:  splitRight();  break;
@@ -107,8 +118,13 @@ void autonomous() {
     //     case AUTON_NONE:
     //     default:                               break;
     // }
-    SAWP();
+    //SAWP();
+    splitLeft();
+    //LeftWing();
+    //RightWing();
     //left7();
+    //right7();
+    //left7wing();
 }
 
 
@@ -116,7 +132,8 @@ void autonomous() {
 //  OPCONTROL
 // ============================================================
 void opcontrol() {
-    GUI_showDebugScreen();
+    //GUI_showDebugScreen();
+
     new pros::Task(DriveTrainControls);
     new pros::Task(OutakeControls);
     new pros::Task(IntakeRevControls);
@@ -125,8 +142,8 @@ void opcontrol() {
     new pros::Task(Loadercontrols);
     new pros::Task(Hookcontrols);
     new pros::Task(skillsMidControls);
+    //new pros::Task(MidControls);
     new pros::Task(Lowcontrols);
-    new pros::Task(macroWINGleft);
     new pros::Task(macroMIDGOAL);
 
     while (true) {

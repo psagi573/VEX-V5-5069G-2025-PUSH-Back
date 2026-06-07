@@ -181,7 +181,7 @@ float getAverageDistance()
 void drive(double distInches, double timeout)
 {
     distPID.reset();
-    double target = distInches-0.5; 
+    double target = distInches; 
     double start = getAverageDistance();
     double lastError = 0;
     int elapsed = 0;
@@ -219,60 +219,60 @@ void drive(double distInches, double timeout)
     stopsPTO();
 }
 
-void driveheading(double distInches, double timeout, double targetHeading)
-{
-    distPID.reset();
-    headingPID.reset();
+// void driveheading(double distInches, double timeout, double targetHeading)
+// {
+//     distPID.reset();
+//     headingPID.reset();
 
-    double targetDist = distInches + 1;
-    double startDist = getAverageDistance();
+//     double targetDist = distInches + 1;
+//     double startDist = getAverageDistance();
 
-    double lastError = 0;
-    int elapsed = 0;
+//     double lastError = 0;
+//     int elapsed = 0;
 
-    while (true)
-    {
-        double currentDist = getAverageDistance();
-        double traveled = currentDist - startDist;
+//     while (true)
+//     {
+//         double currentDist = getAverageDistance();
+//         double traveled = currentDist - startDist;
 
-        double distError = targetDist - traveled;
+//         double distError = targetDist - traveled;
 
-        // ----- Distance PID -----
-        double linearOut = distPID.compute(targetDist, traveled);
-        linearOut = clamp(linearOut, -1.0, 1.0);
-        linearOut *= 12.0;
-        linearOut = minVolt(linearOut);
+//         // ----- Distance PID -----
+//         double linearOut = distPID.compute(targetDist, traveled);
+//         linearOut = clamp(linearOut, -1.0, 1.0);
+//         linearOut *= 12.0;
+//         linearOut = minVolt(linearOut);
 
-        // ----- Heading PID -----
-        double currentHeading = inertial19.get_heading();
-        double headingError = wrapAngle(targetHeading - currentHeading);
+//         // ----- Heading PID -----
+//         double currentHeading = inertial19.get_heading();
+//         double headingError = wrapAngle(targetHeading - currentHeading);
 
-        double turnOut = headingPID.compute(0, headingError);
+//         double turnOut = headingPID.compute(0, headingError);
 
-        // Scale heading correction to 5%
-        turnOut *= 0.05;
+//         // Scale heading correction to 5%
+//         turnOut *= 0.05;
 
-        // Convert to volts and clamp
-        turnOut = clamp(turnOut, -12.0, 12.0);
+//         // Convert to volts and clamp
+//         turnOut = clamp(turnOut, -12.0, 12.0);
 
-        // ----- Combine outputs -----
-        double leftVolt  = linearOut + turnOut;
-        double rightVolt = linearOut - turnOut;
+//         // ----- Combine outputs -----
+//         double leftVolt  = linearOut + turnOut;
+//         double rightVolt = linearOut - turnOut;
 
-        setDrivePTO(leftVolt, rightVolt);
+//         setDrivePTO(leftVolt, rightVolt);
 
-        // Exit condition
-        if ((fabs(distError) < 1 && fabs(distError - lastError) < 0.1) ||
-            elapsed > timeout)
-            break;
+//         // Exit condition
+//         if ((fabs(distError) < 1 && fabs(distError - lastError) < 0.1) ||
+//             elapsed > timeout)
+//             break;
 
-        lastError = distError;
-        elapsed += 10;
-        pros::delay(10);
-    }
+//         lastError = distError;
+//         elapsed += 10;
+//         pros::delay(10);
+//     }
 
-    stopsPTO();
-}
+//     stopsPTO();
+// }
 
 
 void drivehold(double distInches, double timeout)
